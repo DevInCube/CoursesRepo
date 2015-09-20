@@ -1,1 +1,10 @@
-ab,ab;aba,aab;ababab,aaabbb;
+a,ab;b,bb;c,cb;aa,aba;bcc,bbcc;bbb,bbbb;aaaa,abaaa;abcabc,abbcabc;
+1,100;101,10100;11,1100;1011,101100;1001,100100;1111,111100;
+a,aa;b,bb;c,cc;abc,aabc;bbba,bbbba;cbbcaa,ccbbcaa;
+a,aabc;b,babc;c,cabc;abc,abcabc;bbba,bbbaabc;cbbcaa,cbbcaaabc;
+a,a;b,b;c,c;ab,ab;bc,bc;abc,abc;aabbcc,aabbcc;aaabbc;aaabbc;aaaaabbbbccc,aaaaabbbbccc;aaacccc,aaacccc;bca,;acb,;bbbacc,;ca,;
+a,a;b,b;aab,a;bab,b;ba,;ab,;aabb,;baba,;aaaba,a;bbba,b;babaab,;
+a,a|;b,b|;aa,aa||;bb,bb||;aab,aab||;bbbaababab,bbbaababab|||;aaaab,aaaab||||;
+a,b;b,a;aab,bba;ab,ba;bbaab,aabba;bababa,ababab;bbabbab,aabaaba;
+a,;b,;c,;ab,a;bca,bc;aac,aa;ccca,ccc;bcbc,bcb;aabcba,aabcb;
+a,a;b,a;c,c;ab,b;bca,a;aac,c;ccca,a;bcbc,c;aabcba,a;abbcbbbabbabb,b;
