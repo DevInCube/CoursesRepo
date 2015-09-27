@@ -20,6 +20,6 @@ a,a;b,b;c,c;aa,a;bb,bb;cc,cc;abc,abc;abca,abc;aabcba,abcba;aabc,abc;bbbcbba,bbbc
 a,a;b,;c,;aa,a;bb,;cc,;abc,a;abca,a;aabcba,a;aabc,a;bbbcbba,a;bcbcb,;
 0,0;2,0;11,0;20,0;22,0;101,0;110,0;112,0;1,1;10,1;111,1;
 0,0;1,1;2,2;3,3;10,01;1102,0211;3210,0213;121230,022113;0321203,0022133;
-a,;b,b;c,c;aa,aa;bb,bb;cc,cc;ab,ba;ac,ca;ba,ab;aaa,aaa;bbb,bbb;ccc,ccc;acab,caab;cbabc,bcabc;ababaca,baabaca;
+a,a;b,b;c,c;aa,aa;bb,bb;cc,cc;ab,ba;ac,ca;ba,ab;aaa,aaa;bbb,bbb;ccc,ccc;acab,caab;cbabc,bcabc;ababaca,baabaca;
 a,a;b,b;c,c;aa,a;bb,b;cc,c;ac,a;ab,a;ca,c;aacab,acab;ccab,cab;bbbac,bbac;acacab,aacab;
 a,a;b,a;c,a;ab,a;ca,a;ba,a;acacb,a;acacb,a;acacab,a;bbbbcbabbcbb,a;bcbbcbcb,a;
