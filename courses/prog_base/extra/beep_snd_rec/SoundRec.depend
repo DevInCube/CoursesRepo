@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1447877133 source:c:\users\devincube\desktop\repos\codeblocks\soundrec\main.c
+	<stdio.h>
+	<windows.h>
+	<time.h>
+
