@@ -1,10 +1,23 @@
 #ifdef __linux__
 
-void _beep(int freq, int millis) {
-    //Beep(freq, millis);
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "termio.h"
+
+int _getch(void) {
+    return getch();
 }
+
+void _beep(int freq, int ms) {
+  char command[20];
+  sprintf(command, "sh alarm.sh %i %i", freq, ms);
+  system(command);
+}
+
 void _sleep(int millis) {
-    //Sleep(millis);
+    usleep(millis);
 }
 
 #endif // __linux__

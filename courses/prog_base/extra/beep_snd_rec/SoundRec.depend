@@ -4,3 +4,24 @@
 	<windows.h>
 	<time.h>
 
+1447888203 source:/home/devincube/projects/PublicHadyniak/CoursesRepo/courses/prog_base/extra/beep_snd_rec/linux_play.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	"termio.h"
+
+1447887631 source:/home/devincube/projects/PublicHadyniak/CoursesRepo/courses/prog_base/extra/beep_snd_rec/main.c
+	<stdio.h>
+	<time.h>
+	"play.h"
+
+1447882840 /home/devincube/projects/PublicHadyniak/CoursesRepo/courses/prog_base/extra/beep_snd_rec/play.h
+
+1447882836 source:/home/devincube/projects/PublicHadyniak/CoursesRepo/courses/prog_base/extra/beep_snd_rec/win_play.c
+	<windows.h>
+
+1447883286 /home/devincube/projects/PublicHadyniak/CoursesRepo/courses/prog_base/extra/beep_snd_rec/termio.h
+	<termios.h>
+	<unistd.h>
+	<stdio.h>
+

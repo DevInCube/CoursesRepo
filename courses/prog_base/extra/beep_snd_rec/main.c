@@ -42,7 +42,8 @@ int main(void)
     int cursor = 0;
     int isRecording = 0;
     int size = sizeof(notes) / sizeof(notes[0]);
-    while((c = getch()) != 27) {  /* ESC */
+    puts("Hello");
+    while((c = _getch()) != 27) {  /* ESC */
         switch(c) {
             case 's':
                 isRecording = !isRecording;
@@ -83,7 +84,7 @@ int main(void)
         }
     }
 
-    puts("Press any key...");
-    getch(); // key wait
+    puts("\nPress any key...\n");
+    _getch(); // key wait
     return 0;
 }

@@ -2,6 +2,10 @@
 
 #include <windows.h>
 
+int getch(void) {
+    return getch();
+}
+
 void _beep(int freq, int millis) {
     Beep(freq, millis);
 }
