@@ -94,22 +94,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void DrawPixels(HWND hwnd) {
 
-  PAINTSTRUCT ps;
-  RECT r;
+  	PAINTSTRUCT ps;
+	RECT r;
 
-  GetClientRect(hwnd, &r);
+	GetClientRect(hwnd, &r);
 
-  if (r.bottom == 0)
-      return;
+	if (r.bottom == 0)
+	  return;
 
-  HDC hdc = BeginPaint(hwnd, &ps);
+	HDC hdc = BeginPaint(hwnd, &ps);
 
-  for (int i=0; i<1000; i++) {
+	for (int i = 0; i < 1000; i++) {
+	  int x = rand() % r.right;
+	  int y = rand() % r.bottom;
+	  SetPixel(hdc, x, y, RGB(rand() % 255, rand() % 255, rand() % 255));
+	}
+	Rectangle(hdc, 50, 50, 200, 100);
 
-      int x = rand() % r.right;
-      int y = rand() % r.bottom;
-      SetPixel(hdc, x, y, RGB(255, 0, 0));
-  }
-
-  EndPaint(hwnd, &ps);
+	EndPaint(hwnd, &ps);
 }
