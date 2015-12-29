@@ -3,6 +3,8 @@
 
 const char g_szClassName[] = "SampleWindow";
 
+static HBITMAP hBitmap;
+
 // Step 4: the Window Procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 void DrawPixels(HWND hwnd);
@@ -49,7 +51,7 @@ int WINAPI WinMain(
         g_szClassName,
         "Test",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 680, 520,
+        CW_USEDEFAULT, CW_USEDEFAULT, 800, 520,
         NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL)
@@ -77,6 +79,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	HINSTANCE hInstance = GetModuleHandle(NULL);
     switch(msg)
     {
+		case WM_CREATE:
+    
+			hBitmap = (HBITMAP) LoadImageW(NULL, L"sticker.bmp", 
+                IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+			if (hBitmap == NULL) {
+				MessageBoxW(hwnd, L"Failed to load image", L"Error", MB_OK); 
+			}
+
+        break;      
 		case WM_PAINT:
 			DrawPixels(hwnd);
 		break;
@@ -114,7 +126,7 @@ void DrawPixels(HWND hwnd) {
 	// rectangle
 	Rectangle(hdc, 30, 30, 240, 140);
 	
-	// pens and lines
+	// pens and lines (stroke)
 	HPEN hPen1 = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	HPEN hPen2 = CreatePen(PS_DASH, 1, RGB(0, 0, 0));
 	HPEN hPen3 = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
@@ -148,7 +160,7 @@ void DrawPixels(HWND hwnd) {
 	DeleteObject(hPen4);
 	DeleteObject(hPen5);
 	
-	// brushes
+	// brushes and fill
 	HPEN hPen = CreatePen(PS_NULL, 1, RGB(0, 0, 0));
 	holdPen = SelectObject(hdc, hPen);
 
@@ -178,9 +190,10 @@ void DrawPixels(HWND hwnd) {
 	DeleteObject(hBrush3);
 	DeleteObject(hBrush4);
 	
+	// draw shapes
 	int left = 370;
-	Ellipse(hdc, left, 30, left + 100, 90);
-	RoundRect(hdc, left+120, 30, left+240, 90, 15, 20);
+	Ellipse(hdc, left, 30, left + 60, 90);
+	RoundRect(hdc, left+80, 30, left+160, 90, 15, 20);
 	Chord(hdc, 270, 30, 360, 90, 270, 45, 360, 45);
 	const POINT polygon[10] = { left+30, 145, left+85, 165, left+105, 
       110, left+65, 125, left+30, 105 };
@@ -189,6 +202,7 @@ void DrawPixels(HWND hwnd) {
 	Polygon(hdc, polygon, 5);
 	PolyBezier(hdc, bezier, 4);
 	
+	// draw text
 	DWORD color;
 	HFONT hFont, holdFont;
 	static wchar_t *ver1 = L"Not marble, nor the gilded monuments";
@@ -232,6 +246,20 @@ void DrawPixels(HWND hwnd) {
 
 	SelectObject(hdc, holdFont);
 	DeleteObject(hFont);
+	
+	// draw bitmap
+	BITMAP bitmap;
+	HDC hdcMem;
+	HGDIOBJ oldBitmap;
+	
+	hdcMem = CreateCompatibleDC(hdc);
+	oldBitmap = SelectObject(hdcMem, hBitmap);
+
+	GetObject(hBitmap, sizeof(bitmap), &bitmap);
+	BitBlt(hdc, 550, 5, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+	SelectObject(hdcMem, oldBitmap);
+	DeleteDC(hdcMem);
 
 
 	EndPaint(hwnd, &ps);
