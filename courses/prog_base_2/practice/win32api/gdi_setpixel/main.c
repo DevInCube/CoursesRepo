@@ -49,7 +49,7 @@ int WINAPI WinMain(
         g_szClassName,
         "Test",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 280, 520,
+        CW_USEDEFAULT, CW_USEDEFAULT, 680, 520,
         NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL)
@@ -177,6 +177,18 @@ void DrawPixels(HWND hwnd) {
 	DeleteObject(hBrush2);
 	DeleteObject(hBrush3);
 	DeleteObject(hBrush4);
+	
+	const int left = 370;
+	Ellipse(hdc, left, 30, left + 100, 90);
+	RoundRect(hdc, left+120, 30, left+240, 90, 15, 20);
+	Chord(hdc, 270, 30, 360, 90, 270, 45, 360, 45);
+	const POINT polygon[10] = { left+30, 145, left+85, 165, left+105, 
+      110, left+65, 125, left+30, 105 };
+	const POINT bezier[4] = {280, 160, 320, 160, 
+      325, 110, 350, 110};
+	Polygon(hdc, polygon, 5);
+	PolyBezier(hdc, bezier, 4);
+
 
 	EndPaint(hwnd, &ps);
 }
