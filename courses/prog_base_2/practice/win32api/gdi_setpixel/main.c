@@ -49,7 +49,7 @@ int WINAPI WinMain(
         g_szClassName,
         "Test",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 240, 220,
+        CW_USEDEFAULT, CW_USEDEFAULT, 280, 220,
         NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL)
@@ -94,7 +94,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void DrawPixels(HWND hwnd) {
 
-  	PAINTSTRUCT ps;
+	PAINTSTRUCT ps;
 	RECT r;
 
 	GetClientRect(hwnd, &r);
@@ -109,7 +109,40 @@ void DrawPixels(HWND hwnd) {
 	  int y = rand() % r.bottom;
 	  SetPixel(hdc, x, y, RGB(rand() % 255, rand() % 255, rand() % 255));
 	}
-	Rectangle(hdc, 50, 50, 200, 100);
+	Rectangle(hdc, 30, 30, 240, 140);
+	
+	HPEN hPen1 = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	HPEN hPen2 = CreatePen(PS_DASH, 1, RGB(0, 0, 0));
+	HPEN hPen3 = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
+	HPEN hPen4 = CreatePen(PS_DASHDOT, 1, RGB(0, 0, 0));
+	HPEN hPen5 = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 0));
+
+	HPEN holdPen = SelectObject(hdc, hPen1);
+	MoveToEx(hdc, 50, 30, NULL);
+	LineTo(hdc, 200, 30);
+
+	SelectObject(hdc, hPen2);
+	MoveToEx(hdc, 50, 50, NULL);
+	LineTo(hdc, 200, 50);
+
+	SelectObject(hdc, hPen2);
+	MoveToEx(hdc, 50, 70, NULL);
+	LineTo(hdc, 200, 70);
+
+	SelectObject(hdc, hPen3);
+	MoveToEx(hdc, 50, 90, NULL);
+	LineTo(hdc, 200, 90);
+
+	SelectObject(hdc, hPen4);
+	MoveToEx(hdc, 50, 110, NULL);
+	LineTo(hdc, 200, 110);
+
+	SelectObject(hdc, holdPen);
+	DeleteObject(hPen1);
+	DeleteObject(hPen2);
+	DeleteObject(hPen3);
+	DeleteObject(hPen4);
+	DeleteObject(hPen5);
 
 	EndPaint(hwnd, &ps);
 }
