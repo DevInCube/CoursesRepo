@@ -49,7 +49,7 @@ int WINAPI WinMain(
         g_szClassName,
         "Test",
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 280, 220,
+        CW_USEDEFAULT, CW_USEDEFAULT, 280, 520,
         NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL)
@@ -104,13 +104,17 @@ void DrawPixels(HWND hwnd) {
 
 	HDC hdc = BeginPaint(hwnd, &ps);
 
+	// pixels
 	for (int i = 0; i < 1000; i++) {
 	  int x = rand() % r.right;
 	  int y = rand() % r.bottom;
 	  SetPixel(hdc, x, y, RGB(rand() % 255, rand() % 255, rand() % 255));
 	}
+	
+	// rectangle
 	Rectangle(hdc, 30, 30, 240, 140);
 	
+	// pens and lines
 	HPEN hPen1 = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	HPEN hPen2 = CreatePen(PS_DASH, 1, RGB(0, 0, 0));
 	HPEN hPen3 = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
@@ -143,6 +147,36 @@ void DrawPixels(HWND hwnd) {
 	DeleteObject(hPen3);
 	DeleteObject(hPen4);
 	DeleteObject(hPen5);
+	
+	// brushes
+	HPEN hPen = CreatePen(PS_NULL, 1, RGB(0, 0, 0));
+	holdPen = SelectObject(hdc, hPen);
+
+	HBRUSH hBrush1 = CreateSolidBrush(RGB(121, 90, 0));
+	HBRUSH hBrush2 = CreateSolidBrush(RGB(240, 63, 19));
+	HBRUSH hBrush3 = CreateSolidBrush(RGB(240, 210, 18));
+	HBRUSH hBrush4 = CreateSolidBrush(RGB(9, 189, 21));
+
+	HBRUSH holdBrush = SelectObject(hdc, hBrush1);
+
+	const int top = 200;
+	const int size = 70;
+	Rectangle(hdc, 30, top, 100, top+size);
+	SelectObject(hdc, hBrush2);
+	Rectangle(hdc, 110, top, 180, top+size);
+	SelectObject(hdc, hBrush3);
+	Rectangle(hdc, 30, top+70, 100, top+size+70);
+	SelectObject(hdc, hBrush4);
+	Rectangle(hdc, 110, top+70, 180, top+size+70);
+
+	SelectObject(hdc, holdPen);
+	SelectObject(hdc, holdBrush);
+
+	DeleteObject(hPen);
+	DeleteObject(hBrush1);
+	DeleteObject(hBrush2);
+	DeleteObject(hBrush3);
+	DeleteObject(hBrush4);
 
 	EndPaint(hwnd, &ps);
 }
