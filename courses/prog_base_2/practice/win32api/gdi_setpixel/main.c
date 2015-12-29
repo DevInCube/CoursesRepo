@@ -159,8 +159,8 @@ void DrawPixels(HWND hwnd) {
 
 	HBRUSH holdBrush = SelectObject(hdc, hBrush1);
 
-	const int top = 200;
-	const int size = 70;
+	int top = 200;
+	int size = 70;
 	Rectangle(hdc, 30, top, 100, top+size);
 	SelectObject(hdc, hBrush2);
 	Rectangle(hdc, 110, top, 180, top+size);
@@ -178,7 +178,7 @@ void DrawPixels(HWND hwnd) {
 	DeleteObject(hBrush3);
 	DeleteObject(hBrush4);
 	
-	const int left = 370;
+	int left = 370;
 	Ellipse(hdc, left, 30, left + 100, 90);
 	RoundRect(hdc, left+120, 30, left+240, 90, 15, 20);
 	Chord(hdc, 270, 30, 360, 90, 270, 45, 360, 45);
@@ -188,6 +188,50 @@ void DrawPixels(HWND hwnd) {
       325, 110, 350, 110};
 	Polygon(hdc, polygon, 5);
 	PolyBezier(hdc, bezier, 4);
+	
+	DWORD color;
+	HFONT hFont, holdFont;
+	static wchar_t *ver1 = L"Not marble, nor the gilded monuments";
+	static wchar_t *ver2 = L"Of princes, shall outlive this powerful rhyme;";
+	static wchar_t *ver3 = L"But you shall shine more bright in these contents";
+	static wchar_t *ver4 = L"Than unswept stone, besmear'd with sluttish time.";
+	static wchar_t *ver5 = L"When wasteful war shall statues overturn,";
+	static wchar_t *ver6 = L"And broils root out the work of masonry,";
+	static wchar_t *ver7 = L"Nor Mars his sword, nor war's quick fire shall burn";
+	static wchar_t *ver8 = L"The living record of your memory.";
+	static wchar_t *ver9 = L"'Gainst death, and all oblivious enmity";
+	static wchar_t *ver10 = L"Shall you pace forth; your praise shall still find room";
+	static wchar_t *ver11 = L"Even in the eyes of all posterity";
+	static wchar_t *ver12 = L"That wear this world out to the ending doom.";
+	static wchar_t *ver13 = L"So, till the judgment that yourself arise,";
+	static wchar_t *ver14 = L"You live in this, and dwell in lovers' eyes.";
+
+	color = GetSysColor(COLOR_BTNFACE);
+	SetBkColor(hdc, color);
+
+	hFont = CreateFontW(15, 0, 0, 0, FW_MEDIUM, 0, 0, 0, 0,
+	  0, 0, 0, 0, L"Georgia");
+	holdFont = SelectObject(hdc, hFont);
+
+	left = 270;
+	top = 160;
+	TextOutW(hdc, left, top + 20,  ver1,  lstrlenW(ver1));
+	TextOutW(hdc, left, top + 40,  ver2,  lstrlenW(ver2));
+	TextOutW(hdc, left, top + 60,  ver3,  lstrlenW(ver3));
+	TextOutW(hdc, left, top + 80,  ver4,  lstrlenW(ver4));
+	TextOutW(hdc, left, top + 100, ver5,  lstrlenW(ver5));
+	TextOutW(hdc, left, top + 120, ver6,  lstrlenW(ver6));
+	TextOutW(hdc, left, top + 140, ver7,  lstrlenW(ver7));
+	TextOutW(hdc, left, top + 160, ver8,  lstrlenW(ver8));
+	TextOutW(hdc, left, top + 180, ver9,  lstrlenW(ver9));
+	TextOutW(hdc, left, top + 200, ver10, lstrlenW(ver10));
+	TextOutW(hdc, left, top + 220, ver11, lstrlenW(ver11));
+	TextOutW(hdc, left, top + 240, ver12, lstrlenW(ver12));
+	TextOutW(hdc, left, top + 260, ver13, lstrlenW(ver13));
+	TextOutW(hdc, left, top + 280, ver14, lstrlenW(ver14));
+
+	SelectObject(hdc, holdFont);
+	DeleteObject(hFont);
 
 
 	EndPaint(hwnd, &ps);
