@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <string.h>
+
+#include <windows.h>
+#include <conio.h>
 
 const int SLEEP_TIME = 30;
 
@@ -55,7 +57,7 @@ void drawRect(int px, int py) {
 
 void mainRun(void) {
     char key = 0;
-    int i, px = 40, py = 12;
+    int px = 40, py = 12;
     drawRect(px, py);
     do {
         if (_kbhit()) {
