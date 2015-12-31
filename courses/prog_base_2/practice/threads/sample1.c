@@ -37,8 +37,10 @@ int main(void) {
     _getch();
     // free
     for (int i = 0; i < 3; i++) {
+        TerminateThread(hThreads[i], 0);
         CloseHandle(hThreads[i]);
     }
+    _getch();
     system("cls");
     return 0;
 }
