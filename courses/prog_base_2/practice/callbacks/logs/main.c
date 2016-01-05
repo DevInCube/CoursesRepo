@@ -5,21 +5,15 @@
 typedef void (*LogCallback)(const char *);
 
 void longFunc(LogCallback cb);
-void logger(const char * msg);
+
+void logger1(const char * msg) { printf(">> %s\n", msg); }
+void logger2(const char * msg) { printf("Log message: %s\n", msg); }
 
 int main(void)
 {
-    LogCallback cb = logger;
+    LogCallback cb = logger1;
     longFunc(cb);
     return 0;
-}
-
-void logger(const char * msg) {
-    printf(">> %s\n", msg);
-}
-
-void logger2(const char * msg) {
-    printf("Log message: %s\n", msg);
 }
 
 void longFunc(LogCallback cb) {
