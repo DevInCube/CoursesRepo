@@ -16,8 +16,7 @@
 					<Add directory="../libthread" />
 				</Compiler>
 				<Linker>
-					<Add option="-pthread" />
-					<Add library="../libthread/bin/Debug/libthread.a" />
+					<Add library="..\libthread\bin\Debug\libthread.a" />
 					<Add directory="../libthread/bin/Debug" />
 				</Linker>
 			</Target>
