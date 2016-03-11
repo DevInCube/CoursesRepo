@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1457731264 source:c:\users\devincube\desktop\repos\codeblocks\libthread\thread.c
+	"thread.h"
+	<windows.h>
+
+1457731481 c:\users\devincube\desktop\repos\codeblocks\libthread\thread.h
+
+1457731830 source:c:\users\devincube\desktop\repos\codeblocks\libthread\mutex.c
+	<stdlib.h>
+	<windows.h>
+	"mutex.h"
+
+1457731584 c:\users\devincube\desktop\repos\codeblocks\libthread\mutex.h
+

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1457731995 source:c:\users\devincube\desktop\repos\codeblocks\semi2_threadapp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	"thread.h"
+	"mutex.h"
+
+1457731481 c:\users\devincube\desktop\repos\codeblocks\libthread\thread.h
+
+1457731584 c:\users\devincube\desktop\repos\codeblocks\libthread\mutex.h
+
