@@ -21,3 +21,18 @@
 
 1457733257 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/threads/module/libthread/mutex.h
 
+1457734865 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\threads\module\libthread\libthread_linux.c
+	<stdlib.h>
+	<pthread.h>
+	"thread.h"
+	"mutex.h"
+
+1457731481 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\threads\module\libthread\thread.h
+
+1457731584 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\threads\module\libthread\mutex.h
+
+1457732859 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\threads\module\libthread\libthread_windows.c
+	<windows.h>
+	"thread.h"
+	"mutex.h"
+
