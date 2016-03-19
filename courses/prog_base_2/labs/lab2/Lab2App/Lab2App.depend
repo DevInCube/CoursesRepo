@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1458407541 source:c:\users\devincube\desktop\repos\codeblocks\lab2app\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"stack.h"
+
+1458406439 c:\users\devincube\desktop\repos\codeblocks\lab2staticlib\stack.h
+

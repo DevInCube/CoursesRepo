@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1458408505 source:c:\users\devincube\desktop\repos\codeblocks\lab2dll1\main.cpp
+	"main.h"
+
+1458408499 c:\users\devincube\desktop\repos\codeblocks\lab2dll1\main.h
+	<windows.h>
+	"stack.h"
+
+1458406439 c:\users\devincube\desktop\repos\codeblocks\lab2staticlib\\stack.h
+

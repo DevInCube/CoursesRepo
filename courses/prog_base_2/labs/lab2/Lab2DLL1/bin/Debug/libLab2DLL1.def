@@ -1,0 +1,4 @@
+EXPORTS
+    DllMain@12 @1
+    compare @2
+    reaction @3
