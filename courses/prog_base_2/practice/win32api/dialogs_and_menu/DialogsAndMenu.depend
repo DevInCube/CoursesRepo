@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1458939120 source:c:\users\devincube\desktop\repos\codeblocks\semi2_guibuilder\main.cpp
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"resource.h"
+
+1458939080 c:\users\devincube\desktop\repos\codeblocks\semi2_guibuilder\resource.h
+
+1458939080 source:c:\users\devincube\desktop\repos\codeblocks\semi2_guibuilder\resource.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1458935185 source:c:\users\devincube\desktop\repos\codeblocks\semi2_guibuilder\mainwindow2.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1458934465 source:c:\users\devincube\desktop\repos\codeblocks\semi2_guibuilder\win2.c
+
