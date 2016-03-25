@@ -79,7 +79,7 @@ void mainRun(void) {
                 }
                 break;
             case 'd':
-                if (px < 68) {
+                if (px < 67) {
                     px++;
                 }
                 break;
