@@ -1,0 +1,24 @@
+[
+	{
+		"name": "Taras",
+		"surname": "Shevchenko",
+		"birthdate": "1992-03-09",
+		"group": {
+			"name": "KP-91",
+			"faculty": "FPM"
+		},
+		"year": 2009,
+		"score": 4.6
+	},
+	{
+		"name": "Irina",
+		"surname": "Kuzmenko",
+		"birthdate": "1994-09-09",
+		"group": {
+			"name": "FM-12",
+			"faculty": "FMM"
+		},
+		"year": 2011,
+		"score": 4.3
+	}
+]
