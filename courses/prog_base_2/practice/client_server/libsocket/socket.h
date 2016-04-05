@@ -5,6 +5,9 @@
 
 typedef struct socket_s socket_t;
 
+void lib_init(void);
+void lib_free(void);
+
 socket_t * socket_new(void);
 void socket_free(socket_t * self);
 
@@ -16,7 +19,8 @@ int socket_listen(socket_t * socket);
 socket_t * socket_accept(socket_t * socket);
 int socket_connect(socket_t * sock, const char * ipaddress, int portNumber);
 int socket_read(socket_t * sock, char * recvBuff, int recvSize);
-int socket_write(socket_t * conn, const char * msg);
+int socket_write(socket_t * conn, const char * msg, int msgSize);
+int socket_write_string(socket_t * conn, const char * msg);
 void socket_close(socket_t * conn);
 
 #endif // socket_H_INCLUDED
