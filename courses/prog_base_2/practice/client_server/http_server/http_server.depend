@@ -15,3 +15,20 @@
 
 1459924482 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file.h
 
+1459965459 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\file_win.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1459965459 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	"socket.h"
+	"file.h"
+
+1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\libsocket\socket.h
+
+1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\file.h
+

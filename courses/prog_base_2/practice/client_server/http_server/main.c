@@ -17,12 +17,14 @@ int http_getPath(const char * const request, char * pathBuf, int maxPathBuf) {
     ptrdiff_t methodLen = strstr(request, " ") - request;  // find first whitespace
     memcpy(method, request, methodLen);
     method[methodLen] = '\0';
+    printf("METHOD: %s\n", method);
     // get uri
-    const char * uriStartPtr = request + strlen(method);
+    const char * uriStartPtr = request + strlen(method) + 1;
     const char * uriEndPtr = strstr(uriStartPtr, " ");  // find second whitespace
     ptrdiff_t uriLen = uriEndPtr - uriStartPtr;
     memcpy(pathBuf, uriStartPtr, uriLen);
     pathBuf[uriLen] = '\0';
+    printf("URI: %s\n", pathBuf);
     return uriLen;
 }
 
@@ -69,7 +71,7 @@ void server_notFound(socket_t * client) {
 int main() {
     lib_init();
     socket_t * server = socket_new();
-    socket_bind(server, 5002);
+    socket_bind(server, 5000);
     socket_listen(server);
 
     char buf[10000];

@@ -13,7 +13,14 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../libsocket" />
 				</Compiler>
+				<Linker>
+					<Add option="-lws2_32" />
+					<Add library="..\libsocket\build\libsocket.a" />
+					<Add library="C:\Program Files\Microsoft Platform SDK\Lib\WS2_32.Lib" />
+					<Add directory="C:/Program Files/Microsoft Platform SDK/Lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/http_server" prefix_auto="1" extension_auto="1" />
@@ -31,12 +38,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="file.h" />
+		<Unit filename="file_win.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
