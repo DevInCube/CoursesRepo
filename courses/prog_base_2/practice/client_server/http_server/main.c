@@ -6,6 +6,7 @@
 #include "socket.h"
 #include "file.h"
 #include "student.h"
+#include "http.h"
 
 const char * METHODS[] = {"GET", "POST", "PUT", "DELETE"};
 typedef enum {
@@ -35,23 +36,22 @@ student_t g_students[] = {
     }
 };
 
-int http_getPath(const char * const request, char * pathBuf, int maxPathBuf) {
+http_request_t
+http_request_parse(const char * const request) {
+    http_request_t req;
     // get method
-    char method[8];
     ptrdiff_t methodLen = strstr(request, " ") - request;  // find first whitespace
-    memcpy(method, request, methodLen);
-    method[methodLen] = '\0';
-    printf("METHOD: %s\n", method);
+    memcpy(req.method, request, methodLen);
+    req.method[methodLen] = '\0';
     // get uri
-    const char * uriStartPtr = request + strlen(method) + 1;
+    const char * uriStartPtr = request + strlen(req.method) + 1;
     const char * uriEndPtr = strstr(uriStartPtr, " ");  // find second whitespace
     ptrdiff_t uriLen = uriEndPtr - uriStartPtr;
-    memcpy(pathBuf, uriStartPtr, uriLen);
-    pathBuf[uriLen] = '\0';
-    printf("URI: %s\n", pathBuf);
-    return uriLen;
+    memcpy(req.uri, uriStartPtr, uriLen);
+    req.uri[uriLen] = '\0';
+    return req;
 }
-
+/*
 void server_homepage(socket_t * client) {
     char homeBuf[10240];
     const char * htmlText =
@@ -71,9 +71,20 @@ void server_homepage(socket_t * client) {
         "\n%s", strlen(htmlText), htmlText);
     socket_write_string(client, homeBuf);
     socket_close(client);
+}*/
+void server_homepage(socket_t * client) {
+    const char * pageText = "Hello, world of web!";
+    char homeBuf[1024];
+    sprintf(homeBuf,
+        "HTTP/1.1 200 OK\n"
+        "Content-Type: text/html\n"
+        "Content-Length: %zu\n"
+        "\n%s", strlen(pageText), pageText);
+    socket_write_string(client, homeBuf);
+    socket_close(client);
 }
 
-void server_students(socket_t * client) {
+void server_students(socket_t * client, student_t * req) {
     char strbuf[10240];
     const char * allStudentsJson = student_listToJSON(g_students, 2);
     sprintf(strbuf,
@@ -127,15 +138,14 @@ void server_file(socket_t * client, const char * fileName) {
 }
 
 void server_notFound(socket_t * client) {
-    char homeBuf[10240];
+    char replyBuf[1024];
     const char * htmlText = "<h1>404 Page Not Found!</h1>";
-    sprintf(homeBuf,
+    sprintf(replyBuf,
         "HTTP/1.1 404 \n"
         "Content-Type: text/html\n"
         "Content-Length: %zu\n"
-        "Connection: keep-alive\n"
         "\n%s", strlen(htmlText), htmlText);
-    socket_write_string(client, homeBuf);
+    socket_write_string(client, replyBuf);
     socket_close(client);
 }
 
@@ -146,23 +156,22 @@ int main() {
     socket_listen(server);
 
     char buf[10000];
-    char pathBuf[256];
     socket_t * client = NULL;
     while(1) {
         client = socket_accept(server);
         socket_read(client, buf, sizeof(buf));
         printf(">> Got request:\n%s\n", buf);
 
-        http_getPath(buf, pathBuf, sizeof(pathBuf));
+        http_request_t request = http_request_parse(buf);
 
-        if (strcmp(pathBuf, "/") == 0) {
+        if (strcmp(request.uri, "/") == 0) {
             server_homepage(client);
-        } else if (strcmp(pathBuf, "/students") == 0) {
-            server_students(client);
-        } else if (strstr(pathBuf, "/students/") == pathBuf) {
-            server_studentById(client, pathBuf);
+        } else if (strcmp(request.uri, "/students") == 0) {
+            server_students(client, &request);
+        } else if (strstr(request.uri, "/students/") == request.uri) {
+            server_studentById(client, request.uri);
         } else {
-            const char * filePath = strstr(pathBuf, "/") + 1;
+            const char * filePath = strstr(request.uri, "/") + 1;
             if (file_exists(filePath)) {
                 server_file(client, filePath);
             } else {
