@@ -84,12 +84,21 @@ int socket_read(socket_t * self, char * recvBuff, int recvSize) {
     return nRead;
 }
 
-int socket_write(socket_t * self, const char * msg) {
-    int nWritten = write(self->fd, msg, strlen(msg));
+int socket_write(socket_t * self, const char * msg, int msgLen) {
+    int nWritten = write(self->fd, msg, msgLen);
     return nWritten;
 }
 
-void socket_close(socket_t * conn) {
+int socket_write_string(socket_t * self, const char * str) {
+    return socket_write(self, str, strlen(str));
+}
+
+void socket_close(socket_t * self) {
     int status = close(conn->fd);
     // if (0 != status) { ... }
 }
+
+/* STATIC */
+
+void lib_init(void) { }
+void lib_free(void) { }

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <string.h>
 
 #include "socket.h"
 #include "file.h"
@@ -8,7 +8,7 @@
 int http_getPath(const char * request, char * pathBuf, int maxPathBuf) {
     char * res = strstr(request, "GET");
     if (res == request) {
-        int pathStartAddr = request + 4;
+        const char * pathStartAddr = request + 4;
         res = strstr(pathStartAddr, " ");
         int len = res - pathStartAddr;
         memcpy(pathBuf, pathStartAddr, len);
@@ -19,14 +19,16 @@ int http_getPath(const char * request, char * pathBuf, int maxPathBuf) {
 }
 
 void server_homepage(socket_t * client) {
-    char homeBuf[102400];
-    const char * htmlText = "<head><meta charset=\"utf-8\"/><title>C Server</title></head>"
-        "<body><h1>THIS IS SPARTA!</h1><img src='image.png'/></body>";
+    char homeBuf[10240];
+    const char * htmlText =
+        "<head>"
+            "<meta charset=\"utf-8\"/>"
+            "<title>C Server</title></head>"
+        "<body><h1>oh...my...GOD!</h1><img src='image.png'/></body>";
     sprintf(homeBuf,
         "HTTP/1.1 200 OK\n"
-        "Server: CServer\n"
         "Content-Type: text/html\n"
-        "Content-Length: %i\n"
+        "Content-Length: %zu\n"
         "Connection: keep-alive\n"
         "\n%s", strlen(htmlText), htmlText);
     socket_write_string(client, homeBuf);
@@ -34,12 +36,11 @@ void server_homepage(socket_t * client) {
 }
 
 void server_file(socket_t * client, const char * fileName) {
-    char fileBuf[102400];
-    int fileLen = file_readAllBytes(fileName, fileBuf, sizeof(fileBuf));
-    char header[102400];
+    char * fileBuf;
+    int fileLen = file_readAllBytes(fileName, &fileBuf);
+    char header[10240];
     sprintf(header,
         "HTTP/1.1 200 OK\n"
-        "Server: CServer\n"
         "Content-Length: %i\n"
         // "Content-Type: image/png\n"
         "Accept-Ranges: bytes\n"
@@ -49,6 +50,7 @@ void server_file(socket_t * client, const char * fileName) {
     printf(">> Sending file '%s' of size %i bytes...\n\n", fileName, fileLen);
     socket_write(client, fileBuf, fileLen);
     socket_close(client);
+    free(fileBuf);
 }
 
 void server_notFound(socket_t * client) {
@@ -59,7 +61,7 @@ void server_notFound(socket_t * client) {
 int main() {
     lib_init();
     socket_t * server = socket_new();
-    socket_bind(server, 5000);
+    socket_bind(server, 5002);
     socket_listen(server);
 
     char buf[10000];
