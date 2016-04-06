@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <windows.h>
 
 #define FILE_ERROR -1
@@ -9,7 +10,7 @@ file_exists(const char * fileName) {
 }
 
 int
-file_readAllBytes(const char * fileName, char * buff, int maxBuffSize) {
+file_readAllBytes(const char * fileName, char ** const nullBuf) {
     FILE * file;
     file = fopen(fileName, "rb");
     if (!file) {
@@ -17,11 +18,9 @@ file_readAllBytes(const char * fileName, char * buff, int maxBuffSize) {
     }
     fseek(file, 0, SEEK_END);
     int fileLen = ftell(file);
-    if (fileLen > maxBuffSize) {
-        return FILE_ERROR;  // @todo
-    }
+    *nullBuf = malloc(sizeof(char) * fileLen);
     fseek(file, 0, SEEK_SET);
-    fread(buff, fileLen, 1, file);
+    fread(*nullBuf, fileLen, 1, file);
     fclose(file);
     return fileLen;
 }
