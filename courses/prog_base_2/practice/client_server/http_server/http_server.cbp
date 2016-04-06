@@ -44,6 +44,7 @@
 		<Unit filename="file_win.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="http.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
