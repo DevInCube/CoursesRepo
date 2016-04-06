@@ -1,21 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>  // ptrdiff_t
 
 #include "socket.h"
 #include "file.h"
 
-int http_getPath(const char * request, char * pathBuf, int maxPathBuf) {
-    char * res = strstr(request, "GET");
-    if (res == request) {
-        const char * pathStartAddr = request + 4;
-        res = strstr(pathStartAddr, " ");
-        int len = res - pathStartAddr;
-        memcpy(pathBuf, pathStartAddr, len);
-        pathBuf[len] = 0;
-        return len;
-    }
-    return 0;
+const char * METHODS[] = {"GET", "POST", "PUT", "DELETE"};
+typedef enum {
+    HTTP_GET, HTTP_POST, HTTP_PUT, HTTP_DELETE
+} HTTP_METHOD;
+
+int http_getPath(const char * const request, char * pathBuf, int maxPathBuf) {
+    // get method
+    char method[8];
+    ptrdiff_t methodLen = strstr(request, " ") - request;  // find first whitespace
+    memcpy(method, request, methodLen);
+    method[methodLen] = '\0';
+    // get uri
+    const char * uriStartPtr = request + strlen(method);
+    const char * uriEndPtr = strstr(uriStartPtr, " ");  // find second whitespace
+    ptrdiff_t uriLen = uriEndPtr - uriStartPtr;
+    memcpy(pathBuf, uriStartPtr, uriLen);
+    pathBuf[uriLen] = '\0';
+    return uriLen;
 }
 
 void server_homepage(socket_t * client) {

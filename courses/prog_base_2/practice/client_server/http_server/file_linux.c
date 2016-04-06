@@ -1,5 +1,7 @@
-#include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
+
+#include <unistd.h>
 
 #define FILE_ERROR -1
 
@@ -9,7 +11,7 @@ file_exists(const char * fileName) {
 }
 
 int
-file_readAllBytes(const char * fileName, char ** nullBuf) {
+file_readAllBytes(const char * fileName, char ** const nullBuf) {
     FILE * file;
     file = fopen(fileName, "rb");
     if (!file) {

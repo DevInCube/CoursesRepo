@@ -5,6 +5,6 @@ int
 file_exists(const char * fileName);
 
 int
-file_readAllBytes(const char * fileName, char ** nullBuff);
+file_readAllBytes(const char * fileName, char ** const nullBuff);
 
 #endif // FILE_H_INCLUDED
