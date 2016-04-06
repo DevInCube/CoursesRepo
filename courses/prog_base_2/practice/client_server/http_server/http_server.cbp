@@ -14,11 +14,13 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="../libsocket" />
+					<Add directory="../cJSON" />
 				</Compiler>
 				<Linker>
 					<Add option="-lws2_32" />
 					<Add library="..\libsocket\build\libsocket.a" />
 					<Add library="C:\Program Files\Microsoft Platform SDK\Lib\WS2_32.Lib" />
+					<Add library="..\cJSON\build\libcjson.a" />
 					<Add directory="C:/Program Files/Microsoft Platform SDK/Lib" />
 				</Linker>
 			</Target>
@@ -45,6 +47,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="student.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="student.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

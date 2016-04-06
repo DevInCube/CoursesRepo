@@ -20,15 +20,26 @@
 	<stdlib.h>
 	<windows.h>
 
-1459965459 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
+1459968433 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stddef.h>
 	"socket.h"
 	"file.h"
+	"student.h"
 
 1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\libsocket\socket.h
 
 1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\file.h
+
+1459968035 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1459967555 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\cjson\cjson.h
+
+1459968054 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\student.h
 
