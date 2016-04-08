@@ -82,9 +82,18 @@ void server_students(socket_t * client, http_request_t * req) {
         free(allStudentsJson);
     } else if (strcmp(req->method, "POST") == 0) {
         student_t st = student_empty();
-        st.name = http_request_getArg(req, "name");
-        st.surname = http_request_getArg(req, "surname");
-        st.year = atoi(http_request_getArg(req, "year"));
+        const char * str = http_request_getArg(req, "name");
+        if (NULL != str) {
+            st.name = str;
+        }
+        str = http_request_getArg(req, "surname");
+        if (NULL != str) {
+            st.surname = str;
+        }
+        str = http_request_getArg(req, "year");
+        if (NULL != str) {
+            st.year = atoi(str);
+        }
         const char * jSt = student_toJSON(&st);
         printf("New student:\n%s\n", jSt);
         sprintf(strbuf,

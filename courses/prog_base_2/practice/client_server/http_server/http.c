@@ -41,7 +41,7 @@ http_request_parse(const char * const request) {
         req.formLength += 1;
         req.form = realloc(req.form, sizeof(keyvalue_t) * req.formLength);
         req.form[req.formLength - 1] = kv;
-        cur = pairEndPtr + 1;
+        cur = pairEndPtr + ((strlen(pairEndPtr) > 0) ? 1 : 0);
     }
     return req;
 }
