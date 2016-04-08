@@ -36,21 +36,6 @@ student_t g_students[] = {
     }
 };
 
-http_request_t
-http_request_parse(const char * const request) {
-    http_request_t req;
-    // get method
-    ptrdiff_t methodLen = strstr(request, " ") - request;  // find first whitespace
-    memcpy(req.method, request, methodLen);
-    req.method[methodLen] = '\0';
-    // get uri
-    const char * uriStartPtr = request + strlen(req.method) + 1;
-    const char * uriEndPtr = strstr(uriStartPtr, " ");  // find second whitespace
-    ptrdiff_t uriLen = uriEndPtr - uriStartPtr;
-    memcpy(req.uri, uriStartPtr, uriLen);
-    req.uri[uriLen] = '\0';
-    return req;
-}
 /*
 void server_homepage(socket_t * client) {
     char homeBuf[10240];
@@ -84,16 +69,32 @@ void server_homepage(socket_t * client) {
     socket_close(client);
 }
 
-void server_students(socket_t * client, student_t * req) {
+void server_students(socket_t * client, http_request_t * req) {
     char strbuf[10240];
-    const char * allStudentsJson = student_listToJSON(g_students, 2);
-    sprintf(strbuf,
-        "HTTP/1.1 200 OK\n"
-        "Content-Type: application/json\n"
-        "Content-Length: %zu\n"
-        "Connection: keep-alive\n"
-        "\n%s", strlen(allStudentsJson), allStudentsJson);
-    free(allStudentsJson);
+    if (strcmp(req->method, "GET") == 0) {
+        const char * allStudentsJson = student_listToJSON(g_students, 2);
+        sprintf(strbuf,
+            "HTTP/1.1 200 OK\n"
+            "Content-Type: application/json\n"
+            "Content-Length: %zu\n"
+            "Connection: keep-alive\n"
+            "\n%s", strlen(allStudentsJson), allStudentsJson);
+        free(allStudentsJson);
+    } else if (strcmp(req->method, "POST") == 0) {
+        student_t st = student_empty();
+        st.name = http_request_getArg(req, "name");
+        st.surname = http_request_getArg(req, "surname");
+        st.year = atoi(http_request_getArg(req, "year"));
+        const char * jSt = student_toJSON(&st);
+        printf("New student:\n%s\n", jSt);
+        sprintf(strbuf,
+            "HTTP/1.1 200 OK\n"
+            "Content-Type: application/json\n"
+            "Content-Length: %zu\n"
+            "Connection: keep-alive\n"
+            "\n%s", strlen(jSt), jSt);
+        free(jSt);
+    }
     socket_write_string(client, strbuf);
     socket_close(client);
 }
@@ -159,8 +160,18 @@ int main() {
     socket_t * client = NULL;
     while(1) {
         client = socket_accept(server);
-        socket_read(client, buf, sizeof(buf));
-        printf(">> Got request:\n%s\n", buf);
+        if (NULL == client) {
+            printf("NULL client\n");
+            exit(1);
+        }
+        int readStatus = socket_read(client, buf, sizeof(buf));
+        if (0 == readStatus) {
+            printf("Skipping empty request.\n");
+            socket_close(client);
+            socket_free(client);
+            continue;
+        }
+        printf(">> Got request (read %i):\n`%s`\n", readStatus, buf);
 
         http_request_t request = http_request_parse(buf);
 
@@ -178,6 +189,7 @@ int main() {
                 server_notFound(client);
             }
         }
+        socket_free(client);
     }
     socket_free(server);
     lib_free();

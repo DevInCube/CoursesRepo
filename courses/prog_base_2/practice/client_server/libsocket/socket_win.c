@@ -61,7 +61,9 @@ socket_accept(socket_t * self) {
     struct sockaddr_in clientaddr;
     int size = sizeof(struct sockaddr_in);
     SOCKET winsock = accept(self->winsock, (struct sockaddr *)&clientaddr, &size);
-    // @todo == INVALID_SOCKET
+    if (INVALID_SOCKET == winsock) {
+        return NULL;
+    }
     socket_t * socket = socket_new_winsock(winsock);
     return socket;
 }

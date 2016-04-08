@@ -18,6 +18,21 @@ static cJSON * _student_serializeJSON(const student_t * self) {
 	return jStudent;
 }
 
+student_t
+student_empty(void) {
+    student_t st = {
+        .name = "",
+        .surname = "",
+        .year = 0,
+        .score = 0.0,
+        .group = {
+            .name = "",
+            .faculty = ""
+        }
+    };
+    return st;
+}
+
 const char *
 student_toJSON(const student_t * self) {
     cJSON * jStudent = _student_serializeJSON(self);

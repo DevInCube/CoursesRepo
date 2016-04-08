@@ -14,6 +14,9 @@ typedef struct {
 	group_t group;
 } student_t;
 
+student_t
+student_empty(void);
+
 const char *
 student_toJSON(const student_t * self);
 
