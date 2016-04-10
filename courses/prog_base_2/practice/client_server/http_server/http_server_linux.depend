@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1459924478 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file_linux.c
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+
+1460145833 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.c
+	<stddef.h>
+	"http.h"
+
+1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.h
+
+1460191940 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	"socket.h"
+	"file.h"
+	"student.h"
+	"http.h"
+
+1459920521 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
+
+1459924482 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file.h
+
+1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/student.h
+
+1460145833 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/cJSON/cJSON.h
+

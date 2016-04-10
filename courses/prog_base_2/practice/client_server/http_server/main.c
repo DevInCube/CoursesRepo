@@ -36,7 +36,7 @@ student_t g_students[] = {
     }
 };
 
-/*
+
 void server_homepage(socket_t * client) {
     char homeBuf[10240];
     const char * htmlText =
@@ -56,9 +56,10 @@ void server_homepage(socket_t * client) {
         "\n%s", strlen(htmlText), htmlText);
     socket_write_string(client, homeBuf);
     socket_close(client);
-}*/
+}
+/*
 void server_homepage(socket_t * client) {
-    const char * pageText = "Hello, world of web!";
+    const char * pageText = "Hello, world of web!\n";
     char homeBuf[1024];
     sprintf(homeBuf,
         "HTTP/1.1 200 OK\n"
@@ -68,7 +69,7 @@ void server_homepage(socket_t * client) {
     socket_write_string(client, homeBuf);
     socket_close(client);
 }
-
+*/
 void server_students(socket_t * client, http_request_t * req) {
     char strbuf[10240];
     if (strcmp(req->method, "GET") == 0) {
@@ -162,7 +163,7 @@ void server_notFound(socket_t * client) {
 int main() {
     lib_init();
     socket_t * server = socket_new();
-    socket_bind(server, 5000);
+    socket_bind(server, 5002);
     socket_listen(server);
 
     char buf[10000];

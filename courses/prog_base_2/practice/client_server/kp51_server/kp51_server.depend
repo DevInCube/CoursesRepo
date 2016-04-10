@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1460198002 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/kp51_server/main.c
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<string.h>
+	"socket.h"
+
+1459920521 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
+
