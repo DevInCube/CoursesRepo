@@ -21,7 +21,7 @@ socket_t * socket_new(void) {
     return self;
 }
 
-void socket_delete(socket_t * self) {
+void socket_free(socket_t * self) {
     free(self);
 }
 
@@ -94,8 +94,10 @@ int socket_write_string(socket_t * self, const char * str) {
 }
 
 void socket_close(socket_t * self) {
-    int status = close(conn->fd);
-    // if (0 != status) { ... }
+    int status = close(self->fd);
+    if (0 != status) {
+        // @todo
+    }
 }
 
 /* STATIC */
