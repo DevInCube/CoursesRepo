@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1460323345 source:c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\admin.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"admin.h"
+	"webpage.h"
+
+1460321085 c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\admin.h
+	"webpage.h"
+
+1460320246 c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\webpage.h
+
+1460322978 source:c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\webpage.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"webpage.h"
+	"list.h"
+
+1460323369 source:c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"webpage.h"
+	"admin.h"
+
+1460322860 source:c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\list.c
+	<stdlib.h>
+	"list.h"
+
+1460322806 c:\users\devincube\desktop\repos\codeblocks\semi2_lab3callbackssample\list.h
+
