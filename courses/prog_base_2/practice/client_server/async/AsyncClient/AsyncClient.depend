@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1460492590 source:c:\users\devincube\desktop\repos\codeblocks\asyncclient\main.c
+	<stdio.h>
+	<stdlib.h>
+	<winsock2.h>
+
