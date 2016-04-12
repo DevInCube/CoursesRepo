@@ -38,6 +38,7 @@ int main() {
     while(fgets(line, 100, fr) != NULL) {
         strcat(text, line);
     }
+	fclose(fr);
     // printf ("%s\n", text);
 	parse(text);
 	return 0;

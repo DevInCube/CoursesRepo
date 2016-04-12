@@ -13,6 +13,7 @@ int main(void) {
     while(fgets(line, 100, fr)) {
         strcat(text, line);
     }
+	fclose(fr);
     // printf("%s", text);
 
     xmlDoc * xDoc;
@@ -35,10 +36,13 @@ int main(void) {
                         char * name = xmlGetProp(xGroup, "name");
                         char * fac = xmlNodeGetContent(xFac);
                         printf("\t%10s: %s (%s)\n", "group", name, fac);
+						xmlFree(name);
+						xmlFree(fac);
                         continue;
                     }
                     const char * content = xmlNodeGetContent(xJ);
                     printf("\t%10s: %s\n", xJ->name, content);
+					xmlFree(content);
                 }
             }
         }
