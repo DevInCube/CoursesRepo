@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1460401984 source:c:\users\devincube\desktop\repos\codeblocks\semi2_hwwindows\resource.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1460401984 c:\users\devincube\desktop\repos\codeblocks\semi2_hwwindows\resource.h
+
+1460402588 source:c:\users\devincube\desktop\repos\codeblocks\semi2_hwwindows\main.cpp
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"resource.h"
+
