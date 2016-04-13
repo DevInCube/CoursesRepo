@@ -162,24 +162,32 @@ void server_notFound(socket_t * client) {
     socket_close(client);
 }
 
-socket_t * server;
+static socket_t * g_serverSock;
 
 void cleanup_server(void);
 void inthandler(int);
 
 int main(void) {
+    const int sPort = 5000;
+
     atexit(cleanup_server);
     signal(SIGINT, inthandler);
 
     lib_init();
-    server = socket_new();
-    socket_bind(server, 5002);
-    socket_listen(server);
+    g_serverSock = socket_new();
+    if (socket_bind(g_serverSock, sPort) == SOCKET_ERR) {
+        printf("Port %i can't be binded\n", sPort);
+        exit(1);
+    } else {
+        printf("Binded on port %i\n", sPort);
+    }
+    socket_listen(g_serverSock);
 
     char buf[10000];
     socket_t * client = NULL;
     while (1) {
-        client = socket_accept(server);
+        printf("Accepting clients...\n");
+        client = socket_accept(g_serverSock);
         if (NULL == client) {
             printf("NULL client\n");
             exit(1);
@@ -211,17 +219,17 @@ int main(void) {
         }
         socket_free(client);
     }
-    socket_free(server);
+    socket_free(g_serverSock);
     lib_free();
     return 0;
 }
 
 void inthandler(int sig) {
-    exit(0);  // call to cleanup_Server at exit
+    exit(0);  // call to cleanup_server at exit
 }
 
 void cleanup_server(void) {
     printf("Cleanup server.\n");
-    socket_close(server);
-    socket_free(server);
+    socket_close(g_serverSock);
+    socket_free(g_serverSock);
 }
