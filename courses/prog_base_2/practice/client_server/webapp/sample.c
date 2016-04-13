@@ -6,7 +6,8 @@
 /* APP.H */
 typedef struct app_s app_t;
 typedef struct request_s request_t;
-typedef void (*request_handler_fn)(app_t * app, request_t * req, void * ctx);
+typedef struct response_s response_t;
+typedef response_t * (*request_handler_fn)(app_t * app, request_t * req, void * ctx);
 
 app_t * app_new(void);
 void app_bind(app_t * self, int port);
@@ -15,12 +16,16 @@ void app_on(app_t * self, const char * uri, request_handler_fn handler, const ch
 void app_run(app_t * self); 
 void app_free(app_t * self); 
 
+response_t * response_new(void);
+void response_free(response_t * self);
+
+/* MAIN.C */
 typedef struct context_s {
 	/* any fields */
 } context_t;
 
-static void handle_homepage(app_t * app, request_t * req, void * ctx);
-static void handle_students(app_t * app, request_t * req, void * ctx);
+static response_t * handle_homepage(app_t * app, request_t * req, void * ctx);
+static response_t * handle_students(app_t * app, request_t * req, void * ctx);
 
 int main(void) {
 	context_t ctx = {
@@ -36,12 +41,14 @@ int main(void) {
 	return 0;
 }
 
-static void handle_homepage(app_t * app, request_t * req, void * ctx) {
+static response_t * handle_homepage(app_t * app, request_t * req, void * ctx) {
 	/**/
+	return response_new();
 }
 
-static void handle_students(app_t * app, request_t * req, void * ctx) {
+static response_t * handle_students(app_t * app, request_t * req, void * ctx) {
 	/**/
+	return response_new();
 }
 
 /* web app module */
@@ -53,6 +60,10 @@ struct app_s {
 };
 
 struct request_s {
+	/* smth */
+};
+
+struct response_s {
 	/* smth */
 };
 
@@ -72,5 +83,14 @@ void app_run(app_t * self) {
 	/* */
 }
 void app_free(app_t * self) {
+	/* */
+}
+
+/* response.C */
+response_t * response_new(void) {
+	/* */
+}
+	
+void response_free(response_t * self) {
 	/* */
 }
