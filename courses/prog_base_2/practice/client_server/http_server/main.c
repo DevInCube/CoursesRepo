@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>  // ptrdiff_t
+#include <signal.h>
 
 #include "socket.h"
 #include "file.h"
 #include "student.h"
 #include "http.h"
+#include "io.h"  // io_kbhit();
 
 const char * METHODS[] = {"GET", "POST", "PUT", "DELETE"};
 typedef enum {
@@ -160,22 +162,30 @@ void server_notFound(socket_t * client) {
     socket_close(client);
 }
 
-int main() {
+socket_t * server;
+
+void cleanup_server(void);
+void inthandler(int);
+
+int main(void) {
+    atexit(cleanup_server);
+    signal(SIGINT, inthandler);
+
     lib_init();
-    socket_t * server = socket_new();
+    server = socket_new();
     socket_bind(server, 5002);
     socket_listen(server);
 
     char buf[10000];
     socket_t * client = NULL;
-    while(1) {
+    while (1) {
         client = socket_accept(server);
         if (NULL == client) {
             printf("NULL client\n");
             exit(1);
         }
         int readStatus = socket_read(client, buf, sizeof(buf));
-        if (0 == readStatus) {
+        if (0 >= readStatus) {
             printf("Skipping empty request.\n");
             socket_close(client);
             socket_free(client);
@@ -204,4 +214,14 @@ int main() {
     socket_free(server);
     lib_free();
     return 0;
+}
+
+void inthandler(int sig) {
+    exit(0);  // call to cleanup_Server at exit
+}
+
+void cleanup_server(void) {
+    printf("Cleanup server.\n");
+    socket_close(server);
+    socket_free(server);
 }
