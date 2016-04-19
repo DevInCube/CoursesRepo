@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1461093595 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/vector.c
+	<stdlib.h>
+	"vector.h"
+
+1461099780 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/main.c
+	<stdio.h>
+	<stdlib.h>
+	"list.h"
+
+1461093425 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/vector.h
+
+1461097976 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list.c
+	<stdlib.h>
+	"list.h"
+
+1461099536 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list.h
+	<stdlib.h>
+
