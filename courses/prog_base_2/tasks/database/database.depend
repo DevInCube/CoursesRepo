@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1461056279 source:/home/devincube/projects/codeblocks/database/db_manager.c
+	<stdlib.h>
+	<sqlite3.h>
+	"db_manager.h"
+	"student.h"
+
+1461056254 /home/devincube/projects/codeblocks/database/db_manager.h
+	"student.h"
+
+1461054512 /home/devincube/projects/codeblocks/database/student.h
+
+1461073012 source:/home/devincube/projects/codeblocks/database/main.c
+	<stdio.h>
+	<stdlib.h>
+	"db_manager.h"
+	"student.h"
+
+1461056349 source:/home/devincube/projects/codeblocks/database/student.c
+	<stdlib.h>
+	<stdio.h>
+	"student.h"
+
