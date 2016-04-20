@@ -1,0 +1,1 @@
+gcc main.c jmeta.c cJSON.c -std=c99 -o a.exe

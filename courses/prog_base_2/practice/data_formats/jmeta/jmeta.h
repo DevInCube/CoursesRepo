@@ -20,13 +20,15 @@ struct jmeta_s {
 	const size_t offset;
 	const jmeta_class_t * jmetaClass;
 	const size_t jArrMaxSize;
+	const int isPointer;
+	const size_t arrLenOffset;
 };
 
 struct jmeta_class_s {
 	const char *	name;
 	const size_t	size;
 	const jmeta_t * meta;
-	const int 		metaSize;
+	const size_t	metaSize;
 };
 
 #define JMETA_FIELD_T const jmeta_t
@@ -45,19 +47,29 @@ struct jmeta_class_s {
 		.metaSize 	= JMETA_SIZE(JMETA_CLASS_FIELDS(CLASSNAME)), 	\
 	};
 
-#define JMETA(KEY, JTYPE, STRUCT, SFIELD) \
-	(jmeta_t){ KEY, JTYPE, offsetof(STRUCT, SFIELD), NULL, 0 }
+#define JMETA(STRUCT, SFIELD, JTYPE, KEY) \
+	(jmeta_t){ KEY, JTYPE, offsetof(STRUCT, SFIELD), NULL, 0, 0 }
 
-#define JMETA_OBJ(KEY, JMETACLASS, STRUCT, SFIELD) \
-	(jmeta_t){ KEY, JOBJECT, offsetof(STRUCT, SFIELD), & JMETACLASS, 0 }
+#define JMETA_AUTO(STRUCT, SFIELD, JTYPE) \
+	JMETA(STRUCT, SFIELD, JTYPE, #SFIELD)
+
+#define JMETA_OBJ(STRUCT, SFIELD, JMETACLASS, KEY) \
+	(jmeta_t){ KEY, JOBJECT, offsetof(STRUCT, SFIELD), & JMETACLASS, 0, 0 }
 	
-#define JMETA_ARR(KEY, JMETACLASS, STRUCT, SFIELD, MAXARRLEN) \
-	(jmeta_t){ KEY, JARRAY, offsetof(STRUCT, SFIELD), & JMETACLASS, MAXARRLEN }
+#define JMETA_OBJ_PTR(STRUCT, SFIELD, JMETACLASS, KEY) \
+	(jmeta_t){ KEY, JOBJECT, offsetof(STRUCT, SFIELD), & JMETACLASS, 0, 1 }
+	
+#define JMETA_ARR(STRUCT, SFIELD, JMETACLASS, MAXARRLEN, KEY) \
+	(jmeta_t){ KEY, JARRAY, offsetof(STRUCT, SFIELD), & JMETACLASS, MAXARRLEN, 0 }
+
+#define JMETA_ARR_PTR(STRUCT, SFIELD, JMETACLASS, SLENFIELD, KEY) \
+	(jmeta_t){ KEY, JARRAY, offsetof(STRUCT, SFIELD), & JMETACLASS, 0, 1, offsetof(STRUCT, SLENFIELD) }
 	
 #define JMETA_OFFSET(PTR, OFFSET) ((void *)((char *)PTR + OFFSET))
 
+// @todo JMETA statuses
 // returns status
-int jfill(void * obj, jmeta_class_t metaClass, const char * jstr);
+int jdeserialize(void * obj, jmeta_class_t metaClass, const char * jstr);
 // free string
 const char * jserialize(void * obj, jmeta_class_t metaClass);
 const char * jtype_toString(jtype type);
