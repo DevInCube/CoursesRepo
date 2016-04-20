@@ -27,15 +27,15 @@ JMETA_CLASS(JPOINT_T) {
 JMETA_CLASS_REG(JPOINT_T, point_t);
 
 JMETA_CLASS(JTEST_T) {
-	JMETA(test_t, text, JSTRING, "text"),
-	JMETA(test_t, number, JINTEGER, "number"),
-	JMETA(test_t, dbl, JDOUBLE, "dbl"),
-	JMETA(test_t, boolean, JBOOLEAN, "boolean"),
-	JMETA_OBJ_PTR(test_t, pPoint, JPOINT_T, "pPoint"),
-	JMETA_OBJ_PTR(test_t, pNullPoint, JPOINT_T, "pNullPoint"),
-	JMETA_OBJ(test_t, point, JPOINT_T, "point"),
-	JMETA_ARR(test_t, points, JPOINT_T, 5, "points"),
-	JMETA_ARR_PTR(test_t, pPoints, JPOINT_T, pPointLen, "pPoints"),
+	JMETA_AUTO(test_t, text, JSTRING),
+	JMETA_AUTO(test_t, number, JINTEGER),
+	JMETA_AUTO(test_t, dbl, JDOUBLE),
+	JMETA_AUTO(test_t, boolean, JBOOLEAN),
+	JMETA_OBJ_PTR_AUTO(test_t, pPoint, JPOINT_T),
+	JMETA_OBJ_PTR_AUTO(test_t, pNullPoint, JPOINT_T),
+	JMETA_OBJ_AUTO(test_t, point, JPOINT_T),
+	JMETA_ARR_AUTO(test_t, points, JPOINT_T, 5),
+	JMETA_ARR_PTR_AUTO(test_t, pPoints, JPOINT_T, pPointLen),
 };
 JMETA_CLASS_REG(JTEST_T, test_t);
 
