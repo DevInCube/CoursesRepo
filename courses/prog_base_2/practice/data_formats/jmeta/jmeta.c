@@ -14,38 +14,6 @@ static void * getPointedAddress(void * pointerAddress) {
 	return (void *)(*ptr);
 }
 
-static void jmeta_class_print_lvl(jmeta_class_t metaClass, const char * keyname, int offset, int lvl) {
-	const int spaces = 4;
-	char * pad = malloc(sizeof(char) * lvl * spaces + 1);
-	for (int i = 0; i < lvl * spaces; i++) { pad[i] = ' '; };
-	pad[lvl * spaces] = '\0';
-	printf(pad);
-	printf("%-10s %-10s", metaClass.name, keyname);
-	if (0 != offset) {
-		printf(" __(%i)", offset);
-	}
-	printf("\n");
-	for (int i = 0; i < metaClass.metaSize; i++) {
-		const jmeta_t meta = metaClass.meta[i];	
-		if (JOBJECT == meta.type) {
-			jmeta_class_print_lvl(*(meta.jmetaClass), meta.key, meta.offset, lvl + 1);
-		} else if (JARRAY == meta.type) {
-			printf(pad);
-			printf("    %-10s<%s> %-10s[] __(%i):\n", 
-				jtype_toString(meta.type), meta.jmetaClass->name, meta.key, meta.offset);
-		} else {
-			printf(pad);
-			printf("    %-10s %-10s __(%i)\n", 
-				jtype_toString(meta.type), meta.key, meta.offset);
-		}
-	}
-	free(pad);
-}
-
-void jmeta_class_print(jmeta_class_t metaClass) {
-	jmeta_class_print_lvl(metaClass, "", 0, 0);
-}
-
 static cJSON * _jserialize(void * obj, jmeta_class_t metaClass) {
 	cJSON * j = cJSON_CreateObject();
 	for (int i = 0; i < metaClass.metaSize; i++) {
@@ -205,8 +173,11 @@ static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j, jmode m
 }
 
 int jdeserializeMode(void * obj, jmeta_class_t metaClass, const char * jstr, jmode mode) {
-	//jmeta_class_print(metaClass);  // @test REMOVE
 	cJSON * json = cJSON_Parse(jstr);
+	if (NULL == json) {
+		g_error = "JSON parsing error";
+		return JMETA_ERROR;
+	}
 	int rc = _jdeserialize(obj, metaClass, json, mode);
 	cJSON_Delete(json);
 	return rc;
@@ -230,4 +201,36 @@ const char * jtype_toString(jtype type) {
 
 const char * jGetError() {
 	return g_error;
+}
+
+static void jmeta_class_print_lvl(jmeta_class_t metaClass, const char * keyname, int offset, int lvl) {
+	const int spaces = 4;
+	char * pad = malloc(sizeof(char) * lvl * spaces + 1);
+	for (int i = 0; i < lvl * spaces; i++) { pad[i] = ' '; };
+	pad[lvl * spaces] = '\0';
+	printf(pad);
+	printf("%-10s %-10s", metaClass.name, keyname);
+	if (0 != offset) {
+		printf(" __(%i)", offset);
+	}
+	printf("\n");
+	for (int i = 0; i < metaClass.metaSize; i++) {
+		const jmeta_t meta = metaClass.meta[i];	
+		if (JOBJECT == meta.type) {
+			jmeta_class_print_lvl(*(meta.jmetaClass), meta.key, meta.offset, lvl + 1);
+		} else if (JARRAY == meta.type) {
+			printf(pad);
+			printf("    %-10s<%s> %-10s[] __(%i):\n", 
+				jtype_toString(meta.type), meta.jmetaClass->name, meta.key, meta.offset);
+		} else {
+			printf(pad);
+			printf("    %-10s %-10s __(%i)\n", 
+				jtype_toString(meta.type), meta.key, meta.offset);
+		}
+	}
+	free(pad);
+}
+
+void jmeta_class_print(jmeta_class_t metaClass) {
+	jmeta_class_print_lvl(metaClass, "", 0, 0);
 }

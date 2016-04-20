@@ -64,7 +64,7 @@ int main(void) {
 		"\"boolean\": false,"
 		"\"integer\": 23,"
 		"\"_double\": 31.13,"
-		"\"string\": \"Something\""
+		"\"string\": \"Something\","
 	"}";
 	printf("%s\n", basicStr);
 	int rc = jdeserialize(&basic_empty, JBASIC_T, basicStr);
