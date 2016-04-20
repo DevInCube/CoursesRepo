@@ -36,6 +36,7 @@ student_t g_students[] = {
     }
 };
 
+void server_notFound(socket_t * client);
 
 void server_homepage(socket_t * client) {
     char homeBuf[10240];
@@ -163,12 +164,13 @@ void server_notFound(socket_t * client) {
 int main() {
     lib_init();
     socket_t * server = socket_new();
-    socket_bind(server, 5002);
+    socket_bind(server, 5000);
     socket_listen(server);
 
     char buf[10000];
     socket_t * client = NULL;
     while(1) {
+        printf("Accepting request...\n");
         client = socket_accept(server);
         if (NULL == client) {
             printf("NULL client\n");
