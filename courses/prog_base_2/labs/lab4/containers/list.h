@@ -3,15 +3,15 @@
 
 #include <stdlib.h>
 
-#define DEFINE_ALLOCATOR(TYPE)              \
-    void * TYPE ## _allocate(TYPE value) {  \
+#define DEFINE_PTR(TYPE)              \
+    void * TYPE ## _ptr(TYPE value) {       \
         TYPE * ptr = malloc(sizeof(TYPE));  \
         *ptr = value;                       \
         return ptr;                         \
     }
 
-#define DEFINE_ALLOCATOR_EX(TYPE, ALLOCATOR)\
-    void * TYPE ## _allocate(TYPE value) {  \
+#define DEFINE_PTR_ALLOCATOR(TYPE, ALLOCATOR)\
+    void * TYPE ## _ptr(TYPE value) {       \
         TYPE * ptr = malloc(sizeof(TYPE));  \
         *ptr = value;                       \
         ALLOCATOR(ptr);                     \

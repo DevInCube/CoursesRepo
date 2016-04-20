@@ -161,6 +161,5 @@ static void _dealloc(list_t * self, void * value) {
 }
 
 static void _default_dealloc(void * value) {
-    printf("default dealloc()\n");
     free(value);
 }
