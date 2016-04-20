@@ -24,6 +24,7 @@ struct jmeta_s {
 
 struct jmeta_class_s {
 	const char *	name;
+	const size_t	size;
 	const jmeta_t * meta;
 	const int 		metaSize;
 };
@@ -36,9 +37,10 @@ struct jmeta_class_s {
 
 #define JMETA_CLASS(CLASSNAME) static JMETA_FIELD_T JMETA_CLASS_FIELDS(CLASSNAME)[] = 
 
-#define JMETA_CLASS_REG(CLASSNAME) 									\
+#define JMETA_CLASS_REG(CLASSNAME, STRUCT)							\
 	static const jmeta_class_t CLASSNAME = { 						\
 		.name 		= #CLASSNAME,									\
+		.size 		= sizeof(STRUCT),								\
 		.meta 		= JMETA_CLASS_FIELDS(CLASSNAME), 				\
 		.metaSize 	= JMETA_SIZE(JMETA_CLASS_FIELDS(CLASSNAME)), 	\
 	};
@@ -56,4 +58,6 @@ struct jmeta_class_s {
 
 // returns status
 int jfill(void * obj, jmeta_class_t metaClass, const char * jstr);
+// free string
+const char * jserialize(void * obj, jmeta_class_t metaClass);
 const char * jtype_toString(jtype type);
