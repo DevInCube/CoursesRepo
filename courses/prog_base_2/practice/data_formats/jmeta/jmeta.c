@@ -7,6 +7,8 @@
 
 #include "jmeta.h"
 
+static char * g_error = "";
+
 static void * getPointedAddress(void * pointerAddress) {
 	intptr_t * ptr = (intptr_t *)pointerAddress;
 	return (void *)(*ptr);
@@ -28,7 +30,9 @@ static void jmeta_class_print_lvl(jmeta_class_t metaClass, const char * keyname,
 		if (JOBJECT == meta.type) {
 			jmeta_class_print_lvl(*(meta.jmetaClass), meta.key, meta.offset, lvl + 1);
 		} else if (JARRAY == meta.type) {
-			// @todo
+			printf(pad);
+			printf("    %-10s<%s> %-10s[] __(%i):\n", 
+				jtype_toString(meta.type), meta.jmetaClass->name, meta.key, meta.offset);
 		} else {
 			printf(pad);
 			printf("    %-10s %-10s __(%i)\n", 
@@ -64,7 +68,7 @@ static cJSON * _jserialize(void * obj, jmeta_class_t metaClass) {
 			int count = meta.jArrMaxSize;
 			void * arrstartptr = ptr;
 			if (meta.isPointer) {
-				int * sizeintptr = (int *)JMETA_OFFSET(obj, meta.arrLenOffset);
+				int * sizeintptr = (int *)JMETA_OFFSET(obj, meta.arrLenFieldOffset);
 				count = *sizeintptr;
 				void * pointed = getPointedAddress(ptr);
 				if (NULL == pointed) {
@@ -80,8 +84,12 @@ static cJSON * _jserialize(void * obj, jmeta_class_t metaClass) {
 				cJSON_AddItemToArray(jitem, jelem);
 			}
 		} if (JSTRING == meta.type) {
-			char ** sptr = (char **)ptr;
-			jitem = cJSON_CreateString(*sptr);
+			if (meta.isPointer) {
+				char ** sptr = (char **)ptr;
+				jitem = cJSON_CreateString(*sptr);
+			} else {
+				jitem = cJSON_CreateString(ptr);
+			}
 		} else if (JINTEGER == meta.type) {
 			int * intptr = (int *)ptr;
 			jitem = cJSON_CreateNumber((double)*intptr);
@@ -116,15 +124,20 @@ const char * jserialize(void * obj, jmeta_class_t metaClass) {
 /* 
 	@todo add deserialize modes
 		IGNORE 	- all pointers are ignored
-		STRONG	- try to access and fill objects by their pointer (but checks for NULL pointers)
+		STRICT	- try to access and fill objects by their pointer (but checks for NULL pointers)
 		WEAK	- set NULL to object pointer if JSON has value 'null'
 		MALLOC 	- allocate memory for object pointers, even if they points to something
 			required PTR_length field in struct for arrays
+	
+	add STRICT or IGNORE errors modes
 */
-static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j) {
+static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j, jmode mode) {
 	for (int i = 0; i < metaClass.metaSize; i++) {
 		const jmeta_t meta = metaClass.meta[i];
-		// @todo cJSON_HasObjectItem
+		if (!cJSON_HasObjectItem(j, meta.key) && (JMETA_STRICT == mode)) {
+			g_error = "key not found";
+			return JMETA_ERROR;
+		}
 		cJSON * jprop = cJSON_GetObjectItem(j, meta.key);
 		void * ptr = JMETA_OFFSET(obj, meta.offset);
 		if (JOBJECT == meta.type) {
@@ -134,10 +147,10 @@ static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j) {
 				if (NULL == pointed) {
 					// jitem = cJSON_CreateNull();
 				} else {
-					_jdeserialize(pointed, *(meta.jmetaClass), jprop);
+					_jdeserialize(pointed, *(meta.jmetaClass), jprop, mode);
 				}
 			} else {
-				_jdeserialize(ptr, *(meta.jmetaClass), jprop);
+				_jdeserialize(ptr, *(meta.jmetaClass), jprop, mode);
 			}
 		} else if (JARRAY == meta.type) {
 			// @todo implement
@@ -159,13 +172,21 @@ static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j) {
 				for (int j = 0; j < maxSize && j < arrSize; j++) {
 					cJSON * jItem = cJSON_GetArrayItem(jprop, j);
 					void * elemptr = JMETA_OFFSET(ptr, j * itemMetaClass.size);
-					_jdeserialize(elemptr, itemMetaClass, jItem);
+					_jdeserialize(elemptr, itemMetaClass, jItem, mode);
 				}
 			}
 		} else if (JSTRING == meta.type) {
-			char ** sptr = (char **)ptr;
-			*sptr = malloc(strlen(jprop->valuestring) + 1);
-			strcpy(*sptr, jprop->valuestring);
+			if (meta.isPointer) {
+				char ** sptr = (char **)ptr;
+				*sptr = malloc(strlen(jprop->valuestring) + 1);
+				strcpy(*sptr, jprop->valuestring);
+			} else {
+				if (strlen(jprop->valuestring) >= meta.jArrMaxSize) {
+					g_error = "json string is too long";
+					return JMETA_ERROR;
+				}
+				strcpy(ptr, jprop->valuestring);
+			}
 		} else if (JINTEGER == meta.type) {
 			int * intptr = (int *)ptr;
 			*intptr = jprop->valueint;
@@ -176,18 +197,23 @@ static int _jdeserialize(void * obj, jmeta_class_t metaClass, cJSON * j) {
 			int * boolptr = (int *)ptr;
 			*boolptr = jprop->valueint;
 		} else {
-			return 1; // ERROR
+			g_error = "undefined type";
+			return JMETA_ERROR;
 		}
 	}
-	return 0; // OK
+	return JMETA_OK; // OK
+}
+
+int jdeserializeMode(void * obj, jmeta_class_t metaClass, const char * jstr, jmode mode) {
+	//jmeta_class_print(metaClass);  // @test REMOVE
+	cJSON * json = cJSON_Parse(jstr);
+	int rc = _jdeserialize(obj, metaClass, json, mode);
+	cJSON_Delete(json);
+	return rc;
 }
 
 int jdeserialize(void * obj, jmeta_class_t metaClass, const char * jstr) {
-	//jmeta_class_print(metaClass);  // @test REMOVE
-	cJSON * json = cJSON_Parse(jstr);
-	int rc = _jdeserialize(obj, metaClass, json);
-	cJSON_Delete(json);
-	return rc;
+	return jdeserializeMode(obj, metaClass, jstr, JMETA_IGNORE);
 }
 
 const char * jtype_toString(jtype type) {
@@ -200,4 +226,8 @@ const char * jtype_toString(jtype type) {
 		case JOBJECT: 	return "JOBJECT";
 		default: 		return "(undefined)";
 	}
+}
+
+const char * jGetError() {
+	return g_error;
 }
