@@ -36,6 +36,54 @@ void jmeta_class_print(jmeta_class_t metaClass) {
 	jmeta_class_print_lvl(metaClass, "", 0, 0);
 }
 
+cJSON * _jserialize(void * obj, jmeta_class_t metaClass) {
+	cJSON * j = cJSON_CreateObject();
+	for (int i = 0; i < metaClass.metaSize; i++) {
+		const jmeta_t meta = metaClass.meta[i];
+		void * ptr = JMETA_OFFSET(obj, meta.offset);
+		cJSON * jitem = NULL;
+		if (JOBJECT == meta.type) {
+			jitem = _jserialize(ptr, *meta.jmetaClass);
+		} else if (JARRAY == meta.type) {
+			jitem = cJSON_CreateArray();
+			for (int j = 0; j < meta.jArrMaxSize; j++) {
+				jmeta_class_t itemMetaClass = *meta.jmetaClass;
+				void * elemptr = JMETA_OFFSET(ptr, j * itemMetaClass.size);
+				cJSON * jelem = _jserialize(elemptr, itemMetaClass);
+				cJSON_AddItemToArray(jitem, jelem);
+			}
+		} else {
+			if (JSTRING == meta.type) {
+				char ** sptr = (char **)ptr;
+				jitem = cJSON_CreateString(*sptr);
+			} else if (JINTEGER == meta.type) {
+				int * intptr = (int *)ptr;
+				jitem = cJSON_CreateNumber((double)*intptr);
+			} else if (JDOUBLE == meta.type) {
+				double * dblptr = (double *)ptr;
+				jitem = cJSON_CreateNumber(*dblptr);
+			} else if (JBOOLEAN == meta.type) {
+				int * boolptr = (int *)ptr;
+				jitem = cJSON_CreateBool(*boolptr);
+			}
+		}
+		if (NULL != jitem) {
+			cJSON_AddItemToObject(j, meta.key, jitem);
+		}
+	}
+	return j;
+}
+
+const char * jserialize(void * obj, jmeta_class_t metaClass) {
+	cJSON * j = _jserialize(obj, metaClass);
+	if (NULL == j) {
+		return NULL; // ERROR
+	}
+	const char * res = cJSON_Print(j);
+	cJSON_Delete(j);
+	return res;
+}
+
 int _jfill(void * obj, jmeta_class_t metaClass, cJSON * j) {
 	for (int i = 0; i < metaClass.metaSize; i++) {
 		const jmeta_t meta = metaClass.meta[i];
@@ -58,19 +106,22 @@ int _jfill(void * obj, jmeta_class_t metaClass, cJSON * j) {
 				double * dblptr = (double *)ptr;
 				*dblptr = jprop->valuedouble;
 			} else if (JBOOLEAN == meta.type) {
-				// @todo implement
-			} else /* if (JNULL == meta.type)*/{
-				// @todo implement
+				int * boolptr = (int *)ptr;
+				*boolptr = jprop->valueint;
+			} else {
+				return 1; // ERROR
 			}
 		}
 	}
+	return 0; // OK
 }
 
 int jfill(void * obj, jmeta_class_t metaClass, const char * jstr) {
 	//jmeta_class_print(metaClass);  // @test REMOVE
 	cJSON * json = cJSON_Parse(jstr);
-	_jfill(obj, metaClass, json);
+	int rc = _jfill(obj, metaClass, json);
 	cJSON_Delete(json);
+	return rc;
 }
 
 
