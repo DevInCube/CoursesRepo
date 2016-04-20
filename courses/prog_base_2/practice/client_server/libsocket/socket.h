@@ -5,6 +5,10 @@
 
 typedef struct socket_s socket_t;
 
+typedef enum socket_status_s {
+    SOCKET_ERR = -1
+} socket_status_t;
+
 void lib_init(void);
 void lib_free(void);
 

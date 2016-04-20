@@ -10,17 +10,19 @@
 
 1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.h
 
-1460191940 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
+1460530011 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stddef.h>
+	<signal.h>
 	"socket.h"
 	"file.h"
 	"student.h"
 	"http.h"
+	"io.h"
 
-1459920521 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
+1460529895 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
 
 1459924482 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file.h
 
@@ -33,4 +35,12 @@
 	"student.h"
 
 1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/cJSON/cJSON.h
+
+1460526759 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/io_linux.c
+	<stdio.h>
+	<termios.h>
+	<unistd.h>
+	<fcntl.h>
+
+1460526757 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/io.h
 
