@@ -1,4 +1,7 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <stddef.h>  // ptrdiff_t
+#include <string.h>
 #include "http.h"
 
 http_request_t

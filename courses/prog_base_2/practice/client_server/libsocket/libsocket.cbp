@@ -17,6 +17,10 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-lws2_32" />
+					<Add library="C:\Program Files\Microsoft Platform SDK\Lib\WS2_32.Lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/socket" prefix_auto="1" extension_auto="1" />

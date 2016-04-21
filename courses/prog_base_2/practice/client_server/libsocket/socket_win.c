@@ -1,8 +1,6 @@
 #include <winsock2.h>
 #include "socket.h"
 
-#pragma comment(lib,"ws2_32.lib")  // Winsock Library
-
 struct socket_s {
     SOCKET winsock;
 };

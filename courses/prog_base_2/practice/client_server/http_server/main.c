@@ -38,6 +38,7 @@ student_t g_students[] = {
     }
 };
 
+void server_notFound(socket_t * client);
 
 void server_homepage(socket_t * client) {
     char homeBuf[10240];

@@ -19,9 +19,7 @@
 				<Linker>
 					<Add option="-lws2_32" />
 					<Add library="..\libsocket\build\libsocket.a" />
-					<Add library="C:\Program Files\Microsoft Platform SDK\Lib\WS2_32.Lib" />
 					<Add library="..\cJSON\build\libcjson.a" />
-					<Add directory="C:/Program Files/Microsoft Platform SDK/Lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -31,9 +29,15 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../libsocket" />
+					<Add directory="../cJSON" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lws2_32" />
+					<Add library="..\libsocket\bin\Release\libsocket.a" />
+					<Add library="..\cJSON\build\libcjson.a" />
+					<Add library="C:\Program Files\Microsoft Platform SDK\Lib\WS2_32.Lib" />
 				</Linker>
 			</Target>
 		</Build>

@@ -20,7 +20,7 @@
 	<stdlib.h>
 	<windows.h>
 
-1460144896 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
+1460923498 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -46,7 +46,10 @@
 
 1460142843 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\http.h
 
-1460144136 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\http.c
+1460923041 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\http.c
+	<stdlib.h>
+	<stdio.h>
 	<stddef.h>
+	<string.h>
 	"http.h"
 
