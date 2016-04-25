@@ -41,7 +41,7 @@ void
 webpage_sendMessage(webpage_t * self, const char * message, const char * hyperlink) {
     int count = list_getCount(self->event_notification);
     for (int i = 0; i < count; i++) {
-        event_t * ev = list_pop_back(self->event_notification);
+        event_t * ev = list_getEl(self->event_notification, i);
         if (NULL != ev->callback) {
             webpage_notification_fn fn = ev->callback;
             fn(ev->receiver, self, message, hyperlink);
