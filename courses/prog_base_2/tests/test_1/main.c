@@ -6,24 +6,33 @@
 void onStart(void * listener,
     train_t * sender,
     start_event_args_t * args) {
-
-    printf("Good bye!\n");
+    printf("In function %s:\n", __func__);
+    printf("\tGood bye!\n");
 }
 
 void onStart2(void * listener,
     train_t * sender,
     start_event_args_t * args) {
-
-    printf("ololo\n");
+    printf("In function %s:\n", __func__);
+    printf("\tololo\n");
 }
 
-
 typedef struct user_s {
-    char * name;
+    const char * name;
 
 } user_t;
 
-char * user_getName(user_t * self) {
+user_t * user_new(const char * name) {
+    user_t * self = malloc(sizeof(user_t));
+    self->name = name;
+    return self;
+}
+
+void user_free(user_t * self) {
+    free(self);
+}
+
+const char * user_getName(user_t * self) {
     return self->name;
 }
 
@@ -32,79 +41,66 @@ void onTrainStarted(
     train_t * sender,
     start_event_args_t * args) {
 
-    printf("%s got notification about train started", user_getName(listener));
+    printf("In method of user %s:\n", user_getName(listener));
+    printf("\tI got notification about train started!\n");
 }
 
 int main(void) {
-
     train_t * train = train_new();
-    train_pushVagon(train, vagon_new(PASSAZHIRSKII));
-    train_pushVagon(train, vagon_new(PASSAZHIRSKII));
-    train_pushVagon(train, vagon_new(VANTAZHNII));
-    train_pushVagon(train, vagon_new(PASSAZHIRSKII));
-    train_pushVagon(train, vagon_new(VANTAZHNII));
+    car_t * cars[] = {
+        car_new(CAR_PASSENGER),
+        car_new(CAR_FREIGHT),
+        car_new(CAR_PASSENGER),
+        car_new(CAR_PASSENGER),
+        car_new(CAR_FREIGHT),
+        car_new(CAR_FREIGHT),
+        car_new(CAR_PASSENGER),
+    };
+    const int carsLength = sizeof(cars) / sizeof(cars[0]);
+    for (int i = 0; i < carsLength; i++) {
+        train_addCar(train, cars[i]);
+    }
 
+    //
+    train_subscribeStart(train, NULL, onStart);
+    train_subscribeStart(train, NULL, onStart2);
+    //
     user_t * user1 = user_new("Ivan");
     user_t * user2 = user_new("Petro");
     train_subscribeStart(train, user1, (start_fn)onTrainStarted);
     train_subscribeStart(train, user2, (start_fn)onTrainStarted);
 
-    train_subscribeStart(train, NULL, onStart);
-    train_subscribeStart(train, NULL, onStart2);
+    // unsubscribe some subscribers
+    train_unsubscribeStart(train, NULL, onStart2);
+    train_unsubscribeStart(train, user2, (start_fn)onTrainStarted);
 
-    list_t * vagons = train_getVagonList(train);
-    for (int i = 0; i < list_getLength(vagons)); i++) {
-        vagon_t * vagon = (vagon_t *)list_getAt(vagons, i);
-        vagon_type_t type = vagon_getType(vagon);
-        if (type == PASSAZHIRSKII) {
-            printf("%i > PASSAZHIRSKII vagon\n", i);
-        } else {
-            printf("%i > VANTAZHNII vagon\n", i);
-        }
+    printf("Train cars type:\n");
+    list_t * allcars = train_getCarList(train);
+    for (int i = 0; i < list_getSize(allcars); i++) {
+        car_t * car = (car_t *)list_get(allcars, i);
+        car_type_t type = car_getType(car);
+        printf("\t%i [%s]\n", i, car_type_toString(type));
     }
-    list_free(vagons);
+    list_free(allcars);
 
-    printf("Total seats: %i\n", train_getAllSeats(train));
+    printf("\nTotal seats: %i\n", train_getAllSeatsCount(train));
 
+    printf("Starting train...\n");
     train_start(train);
-    if (train_getState(train) == RUNNING) {
-        printf("hurray!\n");
+    if (train_getState(train) == TRAIN_MOVING) {
+        printf("[OK] Train has started!\n");
     } else {
-        printf("=(\n");
+        printf("[ERROR] Train failed to start!\n");
     }
 
+    printf("Stopping train...\n");
     train_stop(train);
 
+    for(int i = 0; i < carsLength; i++) {
+        car_free(cars[i]);
+    }
+    user_free(user1);
+    user_free(user2);
     train_free(train);
     return 0;
 }
-
-
-
-/*
-
-Поїзд
-
-Отримати стан поїзда: рухається або стоїть.
-
-Додати вагон до поїзда (у кінець).
-Вагон може бути 	пасажирським або вантажним.
-Можна 	додавати чи від'єднувати вагони тільки 	коли поїзд стоїть.
-
-Відчепити вагон від поїзда (з кінця)
-
-Отримати кількість та список вагонів
-
-Отримати загальну кількість пасажирських місць
-
-Отримати кількість 	та список вантажних або пасажирських вагонів.
-
-Запустити поїзд (поїзд не може зрушити, якщо має більше 100 тон вантажу).
-1 вантажний вагон — 20 тон, 1 пасажирський — 5 тон.
-
-Зупинити поїзд.
-
-Подія: старт поїзда.
-Передати у колбек час старту, кількість вагонів та загальну вагу вантажу.
-
-*/

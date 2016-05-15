@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1463327163 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_1\list\list.c
+	<stdlib.h>
+	"list.h"
+
+1463326756 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_1\list\list.h
+	<stdlib.h>
+
+1463327490 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"train.h"
+
+1463325745 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_1\train.h
+	<stdlib.h>
+	<time.h>
+	"list/list.h"
+
+1463327618 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_1\train.c
+	"train.h"
+
