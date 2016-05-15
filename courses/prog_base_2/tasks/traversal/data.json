@@ -1,0 +1,42 @@
+{
+	"__data": {
+		"fullname": "Taras Shevchenko",
+		"year": 2009,
+		"score": 4.6
+	},
+	"__left": {
+		"__data": {
+			"fullname": "Irina Kuzmenko",
+			"year": 2011,
+			"score": 4.3
+		},
+		"__left": {
+			"__data": {
+				"fullname": "Opanas Omelenko",
+				"year": 2013,
+				"score": 4.6
+			}
+		},
+		"__right": {
+			"__data": {
+				"fullname": "Jurii Manovsky",
+				"year": 2014,
+				"score": 3.3
+			}
+		}
+	},
+	"__right": {
+		"__data": {
+			"fullname": "Ivan Labuten",
+			"year": 2016,
+			"score": 2.9
+		},
+		"__left": {
+			"__data": {
+				"fullname": "Christian Shnur",
+				"year": 2016,
+				"score": 4.0
+			}
+		}
+	}
+}
