@@ -10,9 +10,14 @@ struct node_s {
 
 struct tree_s {
 	node_t * root;
+	data_destructor_fn data_destructor;
 };
 
-tree_t * tree_new_from_stream(FILE * inputStream, data_constructor_fn callback) {
+tree_t * tree_new_from_stream(
+		FILE * inputStream, 
+		data_constructor_fn constructorCallback, 
+		data_destructor_fn destructorCallback
+	) {
 	/* */
 }
 
