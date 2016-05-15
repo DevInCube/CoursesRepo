@@ -76,13 +76,22 @@ list_t * train_getCarList(train_t * self) {
     return copy;
 }
 
+int __getTotalWeight(train_t * self) {
+    int weight = 0;
+    for (int i = 0; i < list_getSize(self->cars); i++) {
+        car_t * car = list_get(self->cars, i);
+        weight += car->weight;
+    }
+    return weight;
+}
+
 void train_start(train_t * self) {
-    const int totalWeight = 0;
-    const int MAX_WEIGHT = 10;
+    const int totalWeight = __getTotalWeight(self);
+    const int MAX_WEIGHT = 100;
     if (totalWeight <= MAX_WEIGHT) {
         self->state = TRAIN_MOVING;
         start_event_args_t args;
-        // args.startTime;
+        time(&(args.startTime));
         args.numCars = list_getSize(self->cars);
         args.totalWeight = totalWeight;
         for (int i = 0; i < list_getSize(self->subscribers); i++) {

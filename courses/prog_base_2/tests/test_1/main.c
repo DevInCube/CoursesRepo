@@ -6,14 +6,14 @@
 void onStart(void * listener,
     train_t * sender,
     start_event_args_t * args) {
-    printf("In function %s:\n", __func__);
+    printf("In function %s():\n", __func__);
     printf("\tGood bye!\n");
 }
 
 void onStart2(void * listener,
     train_t * sender,
     start_event_args_t * args) {
-    printf("In function %s:\n", __func__);
+    printf("In function %s():\n", __func__);
     printf("\tololo\n");
 }
 
@@ -41,8 +41,9 @@ void onTrainStarted(
     train_t * sender,
     start_event_args_t * args) {
 
-    printf("In method of user %s:\n", user_getName(listener));
-    printf("\tI got notification about train started!\n");
+    printf("In method %s() of user %s:\n", __func__, user_getName(listener));
+    struct tm * timeinfo = localtime( &(args->startTime) );
+    printf("\tI got notification that train with %i cars started at %s!\n", args->numCars, asctime(timeinfo));
 }
 
 int main(void) {
