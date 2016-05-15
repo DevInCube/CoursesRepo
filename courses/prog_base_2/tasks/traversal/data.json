@@ -1,45 +1,54 @@
 {
-	"name": "Taras",
-	"surname": "Shevchenko",
-	"birthdate": "1992-03-09",
-	"year": 2009,
-	"score": 4.6,
-	
+	"@data": {
+		"name": "Taras",
+		"surname": "Shevchenko",
+		"birthdate": "1992-03-09",
+		"year": 2009,
+		"score": 4.6,
+	},
 	"@left": {
-		"name": "Irina",
-		"surname": "Kuzmenko",
-		"birthdate": "1994-09-09",
-		"year": 2011,
-		"score": 4.3,
-		
+		"@data": {
+			"name": "Irina",
+			"surname": "Kuzmenko",
+			"birthdate": "1994-09-09",
+			"year": 2011,
+			"score": 4.3,
+		},
 		"@left": {
-			"name": "Opanas",
-			"surname": "Omelenko",
-			"birthdate": "1993-05-09",
-			"year": 2013,
-			"score": 4.6,
+			"@data": {
+				"name": "Opanas",
+				"surname": "Omelenko",
+				"birthdate": "1993-05-09",
+				"year": 2013,
+				"score": 4.6,
+			},
 		},
 		"@right": {
-			"name": "Jurii",
-			"surname": "Manovsky",
-			"birthdate": "1984-09-09",
-			"year": 2014,
-			"score": 3.3,
+			"@data": {
+				"name": "Jurii",
+				"surname": "Manovsky",
+				"birthdate": "1984-09-09",
+				"year": 2014,
+				"score": 3.3,
+			}
 		}
 	},
 	"@right": {
-		"name": "Ivan",
-		"surname": "Labuten",
-		"birthdate": "1996-10-09",
-		"year": 2016,
-		"score": 2.9,
-		
-		"@left": {
-			"name": "Christian",
-			"surname": "Shnur",
-			"birthdate": "1997-09-10",
+		"@data": {
+			"name": "Ivan",
+			"surname": "Labuten",
+			"birthdate": "1996-10-09",
 			"year": 2016,
-			"score": 4.0
+			"score": 2.9,
+		},
+		"@left": {
+			"@data": {
+				"name": "Christian",
+				"surname": "Shnur",
+				"birthdate": "1997-09-10",
+				"year": 2016,
+				"score": 4.0,
+			},
 		}
 	}
 }
