@@ -1,54 +1,54 @@
 {
-	"@data": {
+	"__data": {
 		"name": "Taras",
 		"surname": "Shevchenko",
 		"birthdate": "1992-03-09",
 		"year": 2009,
-		"score": 4.6,
+		"score": 4.6
 	},
-	"@left": {
-		"@data": {
+	"__left": {
+		"__data": {
 			"name": "Irina",
 			"surname": "Kuzmenko",
 			"birthdate": "1994-09-09",
 			"year": 2011,
-			"score": 4.3,
+			"score": 4.3
 		},
-		"@left": {
-			"@data": {
+		"__left": {
+			"__data": {
 				"name": "Opanas",
 				"surname": "Omelenko",
 				"birthdate": "1993-05-09",
 				"year": 2013,
-				"score": 4.6,
-			},
+				"score": 4.6
+			}
 		},
-		"@right": {
-			"@data": {
+		"__right": {
+			"__data": {
 				"name": "Jurii",
 				"surname": "Manovsky",
 				"birthdate": "1984-09-09",
 				"year": 2014,
-				"score": 3.3,
+				"score": 3.3
 			}
 		}
 	},
-	"@right": {
-		"@data": {
+	"__right": {
+		"__data": {
 			"name": "Ivan",
 			"surname": "Labuten",
 			"birthdate": "1996-10-09",
 			"year": 2016,
-			"score": 2.9,
+			"score": 2.9
 		},
-		"@left": {
-			"@data": {
+		"__left": {
+			"__data": {
 				"name": "Christian",
 				"surname": "Shnur",
 				"birthdate": "1997-09-10",
 				"year": 2016,
-				"score": 4.0,
-			},
+				"score": 4.0
+			}
 		}
 	}
 }
