@@ -10,21 +10,21 @@
 		"surname": "Kuzmenko",
 		"birthdate": "1994-09-09",
 		"year": 2011,
-		"score": 4.3
+		"score": 4.3,
 		
 		"@left": {
 			"name": "Opanas",
 			"surname": "Omelenko",
 			"birthdate": "1993-05-09",
 			"year": 2013,
-			"score": 4.6
+			"score": 4.6,
 		}
 		"@right": {
 			"name": "Jurii",
 			"surname": "Manovsky",
 			"birthdate": "1984-09-09",
 			"year": 2014,
-			"score": 3.3
+			"score": 3.3,
 		}
 	}
 	"@right": {
@@ -32,7 +32,7 @@
 		"surname": "Labuten",
 		"birthdate": "1996-10-09",
 		"year": 2016,
-		"score": 2.9
+		"score": 2.9,
 		
 		"@left": {
 			"name": "Christian",
