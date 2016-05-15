@@ -85,7 +85,7 @@ int socket_read(socket_t * self, char * recvBuff, int recvSize) {
 }
 
 int socket_write(socket_t * self, const char * msg, int msgLen) {
-    int nWritten = write(self->fd, msg, msgLen);
+    int nWritten = send(self->fd, msg, msgLen, MSG_NOSIGNAL);  // write()
     return nWritten;
 }
 

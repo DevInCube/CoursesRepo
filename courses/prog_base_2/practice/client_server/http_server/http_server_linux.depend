@@ -1,21 +1,26 @@
 # depslib dependency file v1.0
-1459924478 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file_linux.c
+1462012020 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file_linux.c
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
 
-1460145833 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.c
+1462015508 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.c
+	<stdlib.h>
+	<stdio.h>
 	<stddef.h>
+	<string.h>
 	"http.h"
 
 1460145833 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/http.h
 
-1460530011 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
+1462476793 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stddef.h>
 	<signal.h>
+	<errno.h>
+	<unistd.h>
 	"socket.h"
 	"file.h"
 	"student.h"

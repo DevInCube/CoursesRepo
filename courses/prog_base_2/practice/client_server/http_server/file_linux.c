@@ -21,7 +21,11 @@ file_readAllBytes(const char * fileName, char ** const nullBuf) {
     int fileLen = ftell(file);
     *nullBuf = malloc(sizeof(char) * fileLen);
     fseek(file, 0, SEEK_SET);
-    fread(*nullBuf, fileLen, 1, file);
+    int r = fread(*nullBuf, 1, fileLen, file);
+    if (r != fileLen) {
+        printf("File %s read err %i != %i\n", fileName, r, fileLen);
+        exit(1);
+    }
     fclose(file);
     return fileLen;
 }

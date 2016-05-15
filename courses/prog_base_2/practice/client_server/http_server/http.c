@@ -61,6 +61,6 @@ http_request_getArg(http_request_t * self, const char * key) {
 
 const char * keyvalue_toString(keyvalue_t * self) {
     char * str = malloc(sizeof(char) * (strlen(self->key) + strlen(self->value) + 2));
-    sprintf(str, "%s=%s\0", self->key, self->value);
+    sprintf(str, "%s=%s", self->key, self->value);
     return str;
 }

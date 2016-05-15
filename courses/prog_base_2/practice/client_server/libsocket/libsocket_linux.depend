@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1462013678 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket_linux.c
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<sys/types.h>
+	<string.h>
+	<time.h>
+	"socket.h"
+
+1460529895 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
+
