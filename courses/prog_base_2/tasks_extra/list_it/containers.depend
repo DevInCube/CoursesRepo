@@ -1,0 +1,50 @@
+# depslib dependency file v1.0
+1461093595 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/vector.c
+	<stdlib.h>
+	"vector.h"
+
+1463855757 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/main.c
+	<stdio.h>
+	<stdlib.h>
+	"list.h"
+	"list_it.h"
+
+1461093425 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/vector.h
+
+1461130992 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list.c
+	<stdlib.h>
+	"list.h"
+
+1463855803 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list.h
+	<stdlib.h>
+
+1461132767 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/listutils.h
+	"list.h"
+
+1463853930 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list_it.c
+	<stdlib.h>
+	"list.h"
+	"list_it.h"
+
+1463855710 /home/devincube/projects/CoursesRepo/courses/prog_base_2/labs/lab4/containers/list_it.h
+
+1463855847 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/tasks_extra/list_it/list.c
+	<stdlib.h>
+	"list.h"
+
+1463857685 /home/devincube/projects/CoursesRepo/courses/prog_base_2/tasks_extra/list_it/list.h
+	<stdlib.h>
+
+1463853930 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/tasks_extra/list_it/list_it.c
+	<stdlib.h>
+	"list.h"
+	"list_it.h"
+
+1463855710 /home/devincube/projects/CoursesRepo/courses/prog_base_2/tasks_extra/list_it/list_it.h
+
+1463857477 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/tasks_extra/list_it/main.c
+	<stdio.h>
+	<stdlib.h>
+	"list.h"
+	"list_it.h"
+
