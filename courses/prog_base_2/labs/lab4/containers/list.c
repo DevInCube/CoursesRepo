@@ -47,7 +47,7 @@ void list_free(list_t * self) {
     free(self);
 }
 
-void list_push_back(list_t * self, void * data) {
+void list_pushBack(list_t * self, void * data) {
     node_t * newNode = node_new(data);
     newNode->prev = self->tail->prev;
     newNode->prev->next = newNode;
@@ -61,7 +61,7 @@ void list_insert(list_t * self, int index, void * value) {
         return;
     }
     if (index == self->size) {
-        list_push_back(self, value);
+        list_pushBack(self, value);
         return;
     }
     node_t * cur = self->head;
@@ -76,7 +76,7 @@ void list_insert(list_t * self, int index, void * value) {
     self->size++;
 }
 
-void * list_pop_back(list_t * self) {
+void * list_popBack(list_t * self) {
     if (self->size == 0) {
         return NULL;
     }
@@ -120,7 +120,7 @@ void * list_remove(list_t * self, int index) {
 
 void list_clear(list_t * self) {
     while (self->size > 0) {
-        void * val = list_pop_back(self);
+        void * val = list_popBack(self);
         _dealloc(self, val);
     }
 }
