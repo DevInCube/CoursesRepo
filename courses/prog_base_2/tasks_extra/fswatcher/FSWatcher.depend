@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1463919816 source:c:\users\devincube\desktop\repos\webapp-core\fswatcher\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fswatcher.h"
+
+1463919629 c:\users\devincube\desktop\repos\webapp-core\fswatcher\fswatcher.h
+
+1463922890 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tasks_extra\fswatcher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	"fswatcher.h"
+
+1463922421 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tasks_extra\fswatcher\fswatcher.h
+
+1463922875 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tasks_extra\fswatcher\fswatcher.c
+	<windows.h>
+	<Winbase.h>
+	<stdlib.h>
+	<stdio.h>
+	<tchar.h>
+	"thread.h"
+	"list.h"
+	"fswatcher.h"
+
+1457735081 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\threads\module\libthread\thread.h
+
+1463863709 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tasks_extra\list\list.h
+	<stdlib.h>
+
