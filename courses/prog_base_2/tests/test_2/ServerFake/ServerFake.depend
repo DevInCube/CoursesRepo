@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1464292257 source:c:\users\devincube\desktop\repos\webapp-core\serverfake\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"server_fake.h"
+
+1464292247 c:\users\devincube\desktop\repos\webapp-core\serverfake\server_fake.h
+
+1464292275 source:c:\users\devincube\desktop\repos\webapp-core\serverfake\server_fake.c
+	<stdlib.h>
+	<stdio.h>
+	"server_fake.h"
+
