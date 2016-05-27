@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1464368261 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\tests\test_2\fshelper\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<dirent.h>
+
