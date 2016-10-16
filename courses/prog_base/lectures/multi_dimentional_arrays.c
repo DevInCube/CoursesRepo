@@ -20,13 +20,18 @@ int main(void) {
 	int k = 0;
 	int val = 0;
 	for (index = 0; index < 2*3*4; index++) {
+	
+		val = arr[0][0][index];  /* use only 1 index */
+		printf("arr[0][0][%i] = %i;", index, val);
+		
 		i = index / (3 * 4);
 		j = index % (3 * 4) / (4);
 		k = index % (4);
-		printf("arr[%i][%i][%i] = %i;\t", i, j, k, arr[i][j][k]);
-		val = arr[0][0][index];
+		val = arr[i][j][k];  /* or use 3 indices from one index */
+		printf("\tarr[%i][%i][%i] = %i;", i, j, k, val);
+		
 		sum += val;
-		printf("arr[0][0][%i] = %i; \tsum = %i\n", index, val, sum);
+		printf("\tsum = %i;\n", sum);
 	}
 	printf("Total sum: %i\n", sum);
 
